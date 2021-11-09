@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import { CssBaseline } from '@material-ui/core';
+import App from "./App";
+import { StyledEngineProvider } from '@mui/material/styles';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <CssBaseline />
+  <StyledEngineProvider injectFirst>
     <App />
-  </React.StrictMode>,
+  </StyledEngineProvider>,
   document.getElementById('root')
 );
