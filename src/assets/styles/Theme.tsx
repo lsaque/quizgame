@@ -64,6 +64,15 @@ const Theme = (mode: PaletteMode) => useMemo(
       fontWeightMedium: 600,
       fontWeightBold: 700,
     },
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 900,
+        lg: 1536,
+        xl: 1728,
+      },
+    },
   }),
   [mode]
 );

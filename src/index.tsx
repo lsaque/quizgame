@@ -1,11 +1,10 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-import App from "./App";
 import { StyledEngineProvider } from '@mui/material/styles';
+import App from "./App";
 
 ReactDOM.render(
   <StyledEngineProvider injectFirst>
-    <App />
+    <App/>
   </StyledEngineProvider>,
   document.getElementById('root')
 );

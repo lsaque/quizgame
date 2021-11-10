@@ -2,10 +2,11 @@ import React, { useState, useMemo } from 'react';
 import { CssBaseline } from '@material-ui/core';
 import { ThemeProvider } from '@mui/material/styles';
 
-import Routes from './navigation/Routes';
-import Navbar from './components/layout/Navbar';
 import { ColorModeContext } from './context/ColorModeContext';
 import customTheme from './assets/styles/Theme'
+import Routes from './navigation/Routes';
+import Navbar from './components/layout/Navbar';
+import LayoutContainer from './components/layout/Container';
 
 const App: React.FC = () => {
 
@@ -20,13 +21,20 @@ const App: React.FC = () => {
     []
   );
   
-
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Navbar/>
-        <Routes/> 
+        <LayoutContainer>
+          <CssBaseline />
+          <Navbar/>
+          <Routes/> 
+        </LayoutContainer>
+        {/* <Container maxWidth="xl">
+          <CssBaseline />
+          <Navbar/>
+          <Routes/> 
+        </Container> */}
+
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
