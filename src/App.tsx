@@ -1,14 +1,16 @@
 import React, { useState, useMemo } from 'react';
 import { CssBaseline } from '@material-ui/core';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 
 import Routes from './navigation/Routes';
 import Navbar from './components/layout/Navbar';
 import { ColorModeContext } from './context/ColorModeContext';
+import customTheme from './assets/styles/Theme'
 
 const App: React.FC = () => {
 
   const [mode, setMode] = useState<'light' | 'dark'>('dark');
+  const theme = customTheme(mode);
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
@@ -17,15 +19,7 @@ const App: React.FC = () => {
     }),
     []
   );
-
-  const theme = useMemo(
-    () => createTheme({
-      palette: {
-        mode,
-      },
-    }),
-    [mode]
-  );
+  
 
   return (
     <ColorModeContext.Provider value={colorMode}>
