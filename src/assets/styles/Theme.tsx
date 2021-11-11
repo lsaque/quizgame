@@ -7,7 +7,7 @@ const Theme = (mode: PaletteMode) => useMemo(
     palette: {
       mode,
       common: {
-        black: '#73ff00',
+        black: '#000',
       },
       primary: {
         main: '#F6514E',
@@ -72,6 +72,42 @@ const Theme = (mode: PaletteMode) => useMemo(
         lg: 1536,
         xl: 1728,
       },
+    },
+    components: {
+      MuiPaper: {
+        variants: [
+          {
+            props: { className: 'background' },
+            style: {
+              height: '100vh',
+              backgroundColor: 'background.default',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundBlendMode: 'difference',
+              display: 'flex',
+              justifyContent: 'center',
+              '&::before': {
+                content: '""',
+                backdropFilter: 'blur(25px)',
+                height: '100%',
+                position: 'absolute',
+                width: '100%',
+              },
+            }
+          }
+        ]
+      },
+      MuiContainer: {
+        variants: [
+          {
+            props: { className: 'mainContent' },
+            style: {
+              position: 'absolute',
+            }
+          }
+        ]
+      }
     },
   }),
   [mode]
