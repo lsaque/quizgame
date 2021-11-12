@@ -156,7 +156,7 @@ const Theme = (mode: PaletteMode) => useMemo(
               transformOrigin: '0 0',
               bottom: 30,
               color: mode === 'dark' ? '#929292' : '#2F2F2F',
-              ['@media (max-height: 600px)']: {
+              '@media (max-height: 600px)': {
                 transform: 'none',
                 position: 'inherit',
               },
