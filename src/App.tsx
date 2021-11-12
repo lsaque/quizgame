@@ -29,12 +29,6 @@ const App: React.FC = () => {
           <Navbar/>
           <Routes/> 
         </LayoutContainer>
-        {/* <Container maxWidth="xl">
-          <CssBaseline />
-          <Navbar/>
-          <Routes/> 
-        </Container> */}
-
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

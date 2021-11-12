@@ -2,6 +2,8 @@ import { useMemo } from 'react';
 import { createTheme } from '@mui/material/styles';
 import { PaletteMode } from '@mui/material';
 
+const RegularFont = 400;
+
 const Theme = (mode: PaletteMode) => useMemo(
   () => createTheme({
     palette: {
@@ -23,34 +25,30 @@ const Theme = (mode: PaletteMode) => useMemo(
       },
       text: {
       ...(mode === 'dark'
-        ? {
-          primary: '#fff',
-          secondary: '#929292',
-        }
-        : {
-          primary: '#101010',
-          secondary: '#2F2F2F',
+          ? {
+            primary: '#fff',
+            secondary: '#929292',
+          }
+          : {
+            primary: '#101010',
+            secondary: '#2F2F2F',
           }
         ),
       },
       background: {
         ...(mode === 'dark'
-        ? {
-          default: '#000',
-        }
-        : {
-          default: '#fff',
+          ? {
+            default: '#000',
+          }
+          : {
+            default: '#fff',
           }
         ),
       },
       action: {
         ...(mode === 'dark'
-        ? {
-          // hover: '',
-        }
-        : {
-          // hover: '',
-          }
+          ? { /* hover */ }
+          : { /* hover */ }
         ),
       }
     },
@@ -60,18 +58,9 @@ const Theme = (mode: PaletteMode) => useMemo(
     typography: {
       fontFamily: ['Poppins','sans-serif',].join(','),
       fontWeightLight: 300,
-      fontWeightRegular: 400,
+      fontWeightRegular: RegularFont,
       fontWeightMedium: 600,
       fontWeightBold: 700,
-    },
-    breakpoints: {
-      values: {
-        xs: 0,
-        sm: 600,
-        md: 900,
-        lg: 1536,
-        xl: 1728,
-      },
     },
     components: {
       MuiPaper: {
@@ -79,7 +68,8 @@ const Theme = (mode: PaletteMode) => useMemo(
           {
             props: { className: 'background' },
             style: {
-              height: '100vh',
+              height: '100%',
+              minHeight: '100vh',
               backgroundColor: 'background.default',
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
@@ -91,6 +81,7 @@ const Theme = (mode: PaletteMode) => useMemo(
                 content: '""',
                 backdropFilter: 'blur(25px)',
                 height: '100%',
+                minHeight: '100vh',
                 position: 'absolute',
                 width: '100%',
               },
@@ -98,16 +89,44 @@ const Theme = (mode: PaletteMode) => useMemo(
           }
         ]
       },
+      MuiAppBar: {
+        defaultProps: {
+          position: 'static',
+          color: 'transparent',
+          elevation: 0,
+          style: {
+            height: 120,
+            justifyContent: 'center',
+          }
+        }
+      },
+      MuiToolbar: {
+        defaultProps: {
+          style: { padding: 0 }          
+        }
+      },
       MuiContainer: {
         variants: [
           {
             props: { className: 'mainContent' },
-            style: {
-              position: 'absolute',
-            }
+            style: { position: 'absolute' }
           }
         ]
-      }
+      },
+      MuiButton: {
+        variants: [
+          {
+            props: { className: 'navbarItem' },
+            style: { padding: '0 20px' }
+          },
+        ],
+        defaultProps: {
+          style: {
+            textTransform: 'capitalize',
+            fontWeight: RegularFont || 'typography.fontWeightRegular',
+          }
+        }
+      },
     },
   }),
   [mode]
