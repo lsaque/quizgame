@@ -62,6 +62,15 @@ const Theme = (mode: PaletteMode) => useMemo(
       fontWeightMedium: 600,
       fontWeightBold: 700,
     },
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 700,
+        md: 1100,
+        lg: 1472,
+        xl: 1728,
+      },
+    },
     components: {
       MuiPaper: {
         variants: [
@@ -108,8 +117,18 @@ const Theme = (mode: PaletteMode) => useMemo(
       MuiContainer: {
         variants: [
           {
-            props: { className: 'mainContent' },
+            props: { className: 'layoutContainer' },
             style: { position: 'absolute' }
+          },
+          {
+            props: { className: 'appContainer'},
+            style: {
+              padding: 0,
+              height: '100vh',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }
           }
         ]
       },

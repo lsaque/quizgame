@@ -3,10 +3,14 @@ import { CssBaseline } from '@material-ui/core';
 import { ThemeProvider } from '@mui/material/styles';
 
 import { ColorModeContext } from './context/ColorModeContext';
-import customTheme from './assets/styles/Theme'
+
+import customTheme from './assets/styles/Theme';
+
 import Routes from './navigation/Routes';
 import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
 import LayoutContainer from './components/layout/Container';
+import AppContent from './components/layout/Content';
 
 const App: React.FC = () => {
 
@@ -26,8 +30,11 @@ const App: React.FC = () => {
       <ThemeProvider theme={theme}>
         <LayoutContainer>
           <CssBaseline />
-          <Navbar/>
-          <Routes/> 
+          <AppContent>
+            <Navbar/>
+            <Routes/>
+            <Footer/>
+          </AppContent>
         </LayoutContainer>
       </ThemeProvider>
     </ColorModeContext.Provider>

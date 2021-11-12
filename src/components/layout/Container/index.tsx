@@ -6,8 +6,9 @@ import { useTheme } from '@mui/material/styles';
 import Background from '../../../assets/images/background/background.png'; 
 
 const LayoutContainer: React.FC = ({ children }) => {
-  const theme = useTheme();
 
+  const theme = useTheme();
+  
   const backgroundIcon = (
     <Box
       sx={{
@@ -25,7 +26,7 @@ const LayoutContainer: React.FC = ({ children }) => {
       sx={{backgroundImage: `url(${ Background })`}}
     >
       { backgroundIcon /* All of the background icons will be here */ }
-      <Container maxWidth="xl" className="mainContent" component="main">
+      <Container maxWidth="xl" className="layoutContainer">
         { children }
       </Container>
     </Paper>

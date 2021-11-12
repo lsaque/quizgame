@@ -54,7 +54,7 @@ export default function Navbar() {
   const colorMode = useContext(ColorModeContext);
 
   return (
-    <AppBar>
+    <AppBar component="nav">
       <Toolbar>
 
         <Link flexGrow={1} href={ROOT}>
