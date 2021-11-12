@@ -26,7 +26,7 @@ const Theme = (mode: PaletteMode) => useMemo(
       text: {
       ...(mode === 'dark'
           ? {
-            primary: '#fff',
+            primary: '#FFF',
             secondary: '#929292',
           }
           : {
@@ -41,7 +41,7 @@ const Theme = (mode: PaletteMode) => useMemo(
             default: '#000',
           }
           : {
-            default: '#fff',
+            default: '#FFF',
           }
         ),
       },
@@ -79,7 +79,6 @@ const Theme = (mode: PaletteMode) => useMemo(
             style: {
               height: '100%',
               minHeight: '100vh',
-              backgroundColor: 'background.default',
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
@@ -146,6 +145,36 @@ const Theme = (mode: PaletteMode) => useMemo(
           }
         }
       },
+      MuiTypography: {
+        variants: [
+          {
+            props: { className: 'leftFooterItem' },
+            style: {
+              textAlign: 'left',
+              position: 'absolute',
+              transform: 'rotate(-90deg)',
+              transformOrigin: '0 0',
+              bottom: 30,
+              color: mode === 'dark' ? '#929292' : '#2F2F2F',
+              ['@media (max-height: 600px)']: {
+                transform: 'none',
+                position: 'inherit',
+              },
+              '&::before': {
+                content: '""',
+                height: 2,
+                width: 25,
+                display: 'inline-block',
+                position: 'relative',
+                marginRight: 15,
+                bottom: 4.5,
+                borderRadius: 10,
+                backgroundColor: mode === 'dark' ? '#929292' : '#2F2F2F', //'#FFF' : '#000'
+              }
+            }
+          }
+        ]
+      }
     },
   }),
   [mode]
