@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { CssBaseline } from '@material-ui/core';
-import { ThemeProvider } from '@mui/material/styles';
+import { responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
 
 import { ColorModeContext } from './context/ColorModeContext';
 import { DEFAULT_VALUE, FooterModeContext } from './context/FooterModeContext';
@@ -17,7 +17,10 @@ const App: React.FC = () => {
 
   const [mode, setMode] = useState<'light' | 'dark'>('dark');
   const [state, setState] = useState(DEFAULT_VALUE.state);
-  const theme = customTheme(mode);
+  
+  let theme = customTheme(mode);
+  theme = responsiveFontSizes(theme);
+
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
@@ -35,7 +38,7 @@ const App: React.FC = () => {
           <AppContent>
             <FooterModeContext.Provider value={{state, setState}}>
               <Navbar/>
-                <Routes/>
+              <Routes/>
               <Footer/>
             </FooterModeContext.Provider>
           </AppContent>
