@@ -1,22 +1,43 @@
-import { Button, Container } from '@material-ui/core';
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Container } from '@material-ui/core';
+import { Grid } from '@mui/material';
+
 import { FooterModeContext } from '../../context/FooterModeContext';
-import { NOT_FOUND } from '../../utils/constants/routes.constants';
+import Header from '../../components/display/Header';
+import Subtitle from '../../components/display/Subtitle';
+import FormsHome from '../../components/forms/FormsHome';
+import CardVideo from '../../components/surfaces/CardVideo';
 
 const Home: React.FC = () => {
 
   const { setState: setGlobalState } = useContext(FooterModeContext);
-  
-  function handleSubmit() {
-    setGlobalState({isPagination: true});
-  }
+
+  useEffect(() => {
+    setGlobalState({ isPagination: false });
+  }, [setGlobalState])
 
   return (
     <Container>
-      <h1>Hello is.a.question</h1>
-      <Link to={NOT_FOUND}>Go to 404 Page</Link>
-      <Button onClick={handleSubmit}>Mudar</Button>
+      <Grid 
+        container
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+
+        <Grid item xs={12} md={7} lg={6}>
+          <Header>Questionário de <br/>perguntas gerais</Header>
+          <Subtitle>Now it's new black and old goldNow it's new black and old goldNow it's new black</Subtitle>
+          <FormsHome/>
+        </Grid>
+
+        <Grid item xs={12} md={5} lg={6} 
+          sx={{ marginTop: { xs: '30px', lg: 0 } }}
+        >
+          <CardVideo/>
+        </Grid>
+
+      </Grid>
     </Container>
   );
 }
