@@ -61,6 +61,12 @@ const Theme = (mode: PaletteMode) => useMemo(
       fontWeightRegular: RegularFont,
       fontWeightMedium: 600,
       fontWeightBold: 700,
+      h1 : {
+        fontWeightRegular: RegularFont,
+      },
+      h2: {
+        fontWeightRegular: RegularFont,
+      }
     },
     breakpoints: {
       values: {
@@ -77,9 +83,11 @@ const Theme = (mode: PaletteMode) => useMemo(
           {
             props: { className: 'background' },
             style: {
-              height: '100%',
-              minHeight: '100vh',
+              position: 'fixed',
+              height:'100vh',
+              width: '100vw',
               backgroundRepeat: 'no-repeat',
+              backgroundAttachment: 'fixed',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundBlendMode: 'difference',
@@ -92,6 +100,21 @@ const Theme = (mode: PaletteMode) => useMemo(
                 minHeight: '100vh',
                 position: 'absolute',
                 width: '100%',
+              },
+            }
+          },
+          {
+            props: { className: 'leftHeaderItem' },
+            style: {
+              backgroundColor: mode === 'dark' ? '#FFF' : '#000',
+              width: 70,
+              height: 4,
+              borderRadius: 10,
+              marginTop: 35,
+              marginRight: 40,
+              '@media (max-width: 700px)': {
+                backgroundColor: '#F6514E',
+                marginBottom: 20,
               },
             }
           }
@@ -117,7 +140,10 @@ const Theme = (mode: PaletteMode) => useMemo(
         variants: [
           {
             props: { className: 'layoutContainer' },
-            style: { position: 'absolute' }
+            style: { 
+              position: 'absolute',
+              overflow: 'auto',
+            }
           },
           {
             props: { className: 'appContainer'},
@@ -137,6 +163,13 @@ const Theme = (mode: PaletteMode) => useMemo(
             props: { className: 'navbarItem' },
             style: { padding: '0 20px' }
           },
+          {
+            props: { variant: 'contained' },
+            style: { 
+              boxShadow: 'none',
+              height: '100%',
+            }
+          }
         ],
         defaultProps: {
           style: {
@@ -156,7 +189,7 @@ const Theme = (mode: PaletteMode) => useMemo(
               transformOrigin: '0 0',
               bottom: 30,
               color: mode === 'dark' ? '#929292' : '#2F2F2F',
-              '@media (max-height: 600px)': {
+              '@media (max-height: 830px)': {
                 transform: 'none',
                 position: 'inherit',
               },
@@ -172,8 +205,29 @@ const Theme = (mode: PaletteMode) => useMemo(
                 backgroundColor: mode === 'dark' ? '#929292' : '#2F2F2F', //'#FFF' : '#000'
               }
             }
+          },
+          {
+            props: { className: 'header' },
+            style: {
+              fontWeight: RegularFont,
+              '@media (min-width: 1450px)': {
+                fontSize: '3.6rem',
+              },
+            }
           }
         ]
+      },
+      MuiTextField: {
+        variants: [
+          {
+            props: { className: 'customInput' },
+            style: {
+              "& .MuiInputBase-root": {
+                backgroundColor: mode === 'dark' ? '#04040484' : '#ffffff84',
+              }
+            }
+          }
+        ],
       }
     },
   }),
