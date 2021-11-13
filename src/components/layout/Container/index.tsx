@@ -23,7 +23,7 @@ const LayoutContainer: React.FC = ({ children }) => {
   return (
     <Paper
       className="background"
-      sx={{backgroundImage: `url(${ Background })`}}
+      sx={{ backgroundImage: `url(${ Background })` }}
     >
       { backgroundIcon /* All of the background icons will be here */ }
       <Container maxWidth="xl" className="layoutContainer">

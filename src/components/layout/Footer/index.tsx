@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { IconButton, AppBar, Stack } from '@mui/material';
-import { Link } from '@mui/material';
+import { IconButton, AppBar, Stack, Link} from '@mui/material';
 import { Grid, Pagination, Typography } from '@material-ui/core';
 
 import GitHubIcon from '@mui/icons-material/GitHub';
