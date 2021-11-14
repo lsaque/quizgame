@@ -2,12 +2,12 @@ import React, { useState, useMemo } from 'react';
 import { CssBaseline } from '@material-ui/core';
 import { responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
 
-import { ColorModeContext } from './context/ColorModeContext';
-import { DEFAULT_VALUE, FooterModeContext } from './context/FooterModeContext';
+import { ColorModeContext } from './contexts/ColorModeContext';
+import { DEFAULT_VALUE, FooterModeContext } from './contexts/FooterModeContext';
 
 import customTheme from './assets/styles/Theme';
 
-import Routes from './navigation/Routes';
+import Routes from './routes/Route';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import LayoutContainer from './components/layout/Container';
@@ -29,22 +29,25 @@ const App: React.FC = () => {
     }),
     []
   );
+
+  const ColorMode = ColorModeContext.Provider;
+  const FooterMode = FooterModeContext.Provider;
   
   return (
-    <ColorModeContext.Provider value={colorMode}>
+    <ColorMode value={colorMode}>
       <ThemeProvider theme={theme}>
         <LayoutContainer>
           <CssBaseline />
           <AppContent>
-            <FooterModeContext.Provider value={{state, setState}}>
+            <FooterMode value={{state, setState}}>
               <Navbar/>
               <Routes/>
               <Footer/>
-            </FooterModeContext.Provider>
+            </FooterMode>
           </AppContent>
         </LayoutContainer>
       </ThemeProvider>
-    </ColorModeContext.Provider>
+    </ColorMode>
   );
 }
 

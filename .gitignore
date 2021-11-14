@@ -8,6 +8,7 @@
 # testing
 /coverage
 webpack.config.js
+src/contexts/TestModeContext.tsx
 
 # production
 /build

@@ -8,7 +8,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import HeartIcon from '@mui/icons-material/Favorite';
 
-import { FooterModeContext } from '../../../context/FooterModeContext';
+import { FooterModeContext } from '../../../contexts/FooterModeContext';
 
 const socialMedias = [
   {

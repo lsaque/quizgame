@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Grid } from '@mui/material';
 import ArrowRight from '@mui/icons-material/EastRounded';
 
-import { FooterModeContext } from '../../../context/FooterModeContext';
+import { FooterModeContext } from '../../../contexts/FooterModeContext';
 import InternalContainer from '../../layout/InternalGrid';
 import Input from '../../inputs/Input';
 import ButtonIcon from '../../inputs/ButtonIcon';

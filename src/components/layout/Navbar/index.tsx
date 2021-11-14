@@ -11,7 +11,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import InfoIcon from '@mui/icons-material/Info';
 import DescriptionIcon from '@mui/icons-material/Description';
 
-import { ColorModeContext } from '../../../context/ColorModeContext';
+import { ColorModeContext } from '../../../contexts/ColorModeContext';
 import { ReactComponent as Logo } from '../../../assets/images/logo/logo.svg';
 import { ROOT } from '../../../utils/constants/routes.constants';
 

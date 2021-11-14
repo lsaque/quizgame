@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Container } from '@material-ui/core';
 import { Grid } from '@mui/material';
 
-import { FooterModeContext } from '../../context/FooterModeContext';
+import { FooterModeContext } from '../../contexts/FooterModeContext';
 import Header from '../../components/display/Header';
 import Subtitle from '../../components/display/Subtitle';
 import FormsHome from '../../components/forms/FormsHome';

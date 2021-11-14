@@ -18,6 +18,7 @@ const CardVideo: React.FC = () => {
           muted
           autoPlay
           component="video"
+          controlsList="nodownload"
           image={video}
           sx={{
             objectFit: 'cover',
