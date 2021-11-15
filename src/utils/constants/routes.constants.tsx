@@ -1,4 +1,4 @@
 export const ROOT = "/";
-// export const PAGE1 = "/page1";
-
+export const PREPARE = "/prepare";
+export const QUIZ = "/quiz";
 export const NOT_FOUND = "*";

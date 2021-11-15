@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { IconButton, AppBar, Toolbar, Button, Stack } from '@mui/material';
+import { IconButton, AppBar, Toolbar, Button, Stack, Box } from '@mui/material';
 import { Link } from '@mui/material';
 
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -57,9 +57,11 @@ export default function Navbar() {
     <AppBar component="nav">
       <Toolbar>
 
-        <Link flexGrow={1} href={ROOT}>
-          <Logo fill={theme.palette.text.primary} />
-        </Link>
+        <Box flexGrow={1}>
+          <Link href={ROOT}>
+              <Logo fill={theme.palette.text.primary} />
+          </Link>
+        </Box>
 
         <Stack direction="row" spacing={0.6}>
           { navbarItens?.map(item => (

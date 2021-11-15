@@ -4,6 +4,7 @@ import { responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
 
 import { ColorModeContext } from './contexts/ColorModeContext';
 import { DEFAULT_VALUE, FooterModeContext } from './contexts/FooterModeContext';
+import { ApiProvider } from './contexts/ApiContext';
 
 import customTheme from './assets/styles/Theme';
 
@@ -40,9 +41,11 @@ const App: React.FC = () => {
           <CssBaseline />
           <AppContent>
             <FooterMode value={{state, setState}}>
-              <Navbar/>
-              <Routes/>
-              <Footer/>
+              <ApiProvider>
+                <Navbar/>
+                <Routes/>
+                <Footer/>
+              </ApiProvider>
             </FooterMode>
           </AppContent>
         </LayoutContainer>

@@ -4,11 +4,13 @@ import { TextField } from '@mui/material';
 interface IInputProps {
   type: string, 
   label: string,
+  [x: string]: any,
 }
 
-const Input: React.FC<IInputProps> = ({ type, label }) => {
+const Input: React.FC<IInputProps> = ({ type, label, ...rest }) => {
   return (
     <TextField
+      {...rest}
       fullWidth 
       label={label}
       type={type}

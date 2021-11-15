@@ -10,6 +10,7 @@ const Theme = (mode: PaletteMode) => useMemo(
       mode,
       common: {
         black: '#000',
+        white: '#FFF',
       },
       primary: {
         main: '#F6514E',
@@ -161,13 +162,9 @@ const Theme = (mode: PaletteMode) => useMemo(
         variants: [
           {
             props: { className: 'navbarItem' },
-            style: { padding: '0 20px' }
-          },
-          {
-            props: { variant: 'contained' },
             style: { 
-              boxShadow: 'none',
-              height: '100%',
+              padding: '0 20px',
+              maxHeight: '40px',
             }
           }
         ],

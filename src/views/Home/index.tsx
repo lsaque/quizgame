@@ -8,6 +8,8 @@ import Subtitle from '../../components/display/Subtitle';
 import FormsHome from '../../components/forms/FormsHome';
 import CardVideo from '../../components/surfaces/CardVideo';
 
+import video from '../../assets/videos/mindBlowing.mp4';
+
 const Home: React.FC = () => {
 
   const { setState: setGlobalState } = useContext(FooterModeContext);
@@ -26,15 +28,13 @@ const Home: React.FC = () => {
       >
 
         <Grid item xs={12} md={7} lg={6}>
-          <Header>Questionário de <br/>perguntas gerais</Header>
-          <Subtitle>Now it's new black and old goldNow it's new black and old goldNow it's new black</Subtitle>
+          <Header>Questionário de<br/>perguntas gerais</Header>
+          <Subtitle>Now it's new black and old goldNow it's new black and old goldNow it's new black.</Subtitle>
           <FormsHome/>
         </Grid>
 
-        <Grid item xs={12} md={5} lg={6} 
-          sx={{ marginTop: { xs: '30px', lg: 0 } }}
-        >
-          <CardVideo/>
+        <Grid item xs={12} md={5} lg={6} marginTop={{ xs: '30px', lg: 0 }}>
+          <CardVideo video={video}/>
         </Grid>
 
       </Grid>
