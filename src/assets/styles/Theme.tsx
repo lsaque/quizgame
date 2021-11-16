@@ -211,6 +211,18 @@ const Theme = (mode: PaletteMode) => useMemo(
                 fontSize: '3.6rem',
               },
             }
+          },
+          {
+            props: { className: 'headerQuestions' },
+            style: {
+              fontWeight: RegularFont,
+              '@media (min-width: 1450px)': {
+                fontSize: '2.2rem',
+              },
+              '@media (max-width: 1450px)': {
+                fontSize: '1.8rem',
+              },
+            }
           }
         ]
       },
@@ -219,13 +231,33 @@ const Theme = (mode: PaletteMode) => useMemo(
           {
             props: { className: 'customInput' },
             style: {
-              "& .MuiInputBase-root": {
+              '& .MuiInputBase-root': {
                 backgroundColor: mode === 'dark' ? '#04040484' : '#ffffff84',
               }
             }
           }
         ],
-      }
+      },
+      MuiFormControlLabel: {
+        defaultProps: {
+          style: {
+            backgroundColor: mode === 'dark' ? '#04040484' : '#ffffff84',
+            marginTop: '10px',
+            width: '100%',
+            borderRadius: '10px',
+            height: '56px',
+            paddingLeft: '10px',
+            marginLeft: 0,
+          }
+        }
+      },
+      MuiFormControl: {
+        defaultProps: {
+          style: {
+            width: '100%',
+          }
+        }
+      },
     },
   }),
   [mode]

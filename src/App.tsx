@@ -3,7 +3,7 @@ import { CssBaseline } from '@material-ui/core';
 import { responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
 
 import { ColorModeContext } from './contexts/ColorModeContext';
-import { DEFAULT_VALUE, FooterModeContext } from './contexts/FooterModeContext';
+import { FooterModeProvider } from './contexts/FooterModeContext';
 import { ApiProvider } from './contexts/ApiContext';
 
 import customTheme from './assets/styles/Theme';
@@ -17,7 +17,7 @@ import AppContent from './components/layout/Content';
 const App: React.FC = () => {
 
   const [mode, setMode] = useState<'light' | 'dark'>('dark');
-  const [state, setState] = useState(DEFAULT_VALUE.state);
+  // const [state, setState] = useState(DEFAULT_VALUE.);
   
   let theme = customTheme(mode);
   theme = responsiveFontSizes(theme);
@@ -32,7 +32,6 @@ const App: React.FC = () => {
   );
 
   const ColorMode = ColorModeContext.Provider;
-  const FooterMode = FooterModeContext.Provider;
   
   return (
     <ColorMode value={colorMode}>
@@ -40,13 +39,13 @@ const App: React.FC = () => {
         <LayoutContainer>
           <CssBaseline />
           <AppContent>
-            <FooterMode value={{state, setState}}>
+            <FooterModeProvider>
               <ApiProvider>
                 <Navbar/>
                 <Routes/>
                 <Footer/>
               </ApiProvider>
-            </FooterMode>
+            </FooterModeProvider>
           </AppContent>
         </LayoutContainer>
       </ThemeProvider>

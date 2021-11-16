@@ -3,18 +3,26 @@ import { Card, CardMedia } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 import Container from '../../layout/InternalGrid';
+import CircularProgress from '../../feedback/CircularProgress';
 
 interface ICardVideoProps{
-  video: string
+  video: string,
+  progress?: any;
 }
 
-const CardVideo: React.FC<ICardVideoProps> = ({ video }) => {
+const CardVideo: React.FC<ICardVideoProps> = ({ video, progress }) => {
 
   const theme = useTheme();
+  const renderProgress = (
+    typeof progress === 'undefined' 
+    ? null 
+    : <CircularProgress value={progress}/>
+  )
   
   return (
     <Container>
       <Card>
+        {renderProgress}
         <CardMedia
           controls
           loop

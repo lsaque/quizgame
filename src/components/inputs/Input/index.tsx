@@ -11,7 +11,8 @@ const Input: React.FC<IInputProps> = ({ type, label, ...rest }) => {
   return (
     <TextField
       {...rest}
-      fullWidth 
+      fullWidth
+      autoComplete="off" 
       label={label}
       type={type}
       className="customInput"

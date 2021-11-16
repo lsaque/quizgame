@@ -30,7 +30,7 @@ const validationSchema = yup.object({
 
 const FormsHome: React.FC = () => {
   const navigate = useNavigate();
-  const mobileDisplay = { display: { xs: 'flex', md: 'block' } };
+  const mobileDisplay = { display: { xs: 'flex', md: 'block' }, justifyContent: 'flex-end' };
   const [isLoading, setLoading] = useState<boolean>(false);
   const { setApiState } = useContext(ApiContext);
   
@@ -57,8 +57,8 @@ const FormsHome: React.FC = () => {
     <InternalContainer>
       <form onSubmit={formik.handleSubmit}>
 
-        <Grid container spacing={2} mt={3}>
-          <Grid item xs={9.6}>
+        <Grid container spacing={2} mt={3} sx={{ justifyContent: { xs: 'space-between', md: 'start' } }}>
+          <Grid item xs={9.6} sm={10.3}>
             <Input
               id="numberQuestions"
               name="numberQuestions"
@@ -71,7 +71,7 @@ const FormsHome: React.FC = () => {
             />
           </Grid>
 
-          <Grid item xs={1} justifyContent="flex-end" sx={mobileDisplay}>
+          <Grid item xs={1} sx={mobileDisplay}>
             <Button
               type="submit"
               typeStyle="icon"

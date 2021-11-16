@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Container } from '@material-ui/core';
 import { Grid } from '@mui/material';
 
-import { FooterModeContext } from '../../contexts/FooterModeContext';
+import FooterModeContext from '../../contexts/FooterModeContext';
 import Header from '../../components/display/Header';
 import Subtitle from '../../components/display/Subtitle';
 import FormsHome from '../../components/forms/FormsHome';
@@ -12,11 +12,11 @@ import video from '../../assets/videos/mindBlowing.mp4';
 
 const Home: React.FC = () => {
 
-  const { setState: setGlobalState } = useContext(FooterModeContext);
+  const { setPagination, isPagination } = useContext(FooterModeContext);
 
   useEffect(() => {
-    setGlobalState({ isPagination: false });
-  }, [setGlobalState])
+    setPagination(false);
+  }, [isPagination])
 
   return (
     <Container>

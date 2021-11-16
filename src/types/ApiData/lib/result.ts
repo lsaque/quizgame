@@ -6,5 +6,5 @@ export type Result = {
   difficulty: string,
   question: string,
   correct_answer: string,
-  incorrectAnswers: IncorrectAnswer[],
+  incorrect_answers: string[],
 }

@@ -8,7 +8,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import HeartIcon from '@mui/icons-material/Favorite';
 
-import { FooterModeContext } from '../../../contexts/FooterModeContext';
+import FooterModeContext from '../../../contexts/FooterModeContext';
 
 const socialMedias = [
   {
@@ -41,7 +41,12 @@ const renderHeart = (
 const Footer: React.FC = () => {
 
   const theme = useTheme();
-  const { state } = useContext(FooterModeContext);
+  const { 
+    isPagination,
+    maxSteps,
+    activeStep,
+    handlePaginationChange
+  } = useContext(FooterModeContext);
 
   return (
     <AppBar component="footer">
@@ -64,9 +69,16 @@ const Footer: React.FC = () => {
           justifyContent="center" 
           display="flex"
         >
-          { state.isPagination 
+          { isPagination 
             ? (
-              <Pagination count={10} shape="rounded" color="primary"/>
+              <Pagination 
+                count={maxSteps} 
+                variant="text"
+                page={activeStep + 1} 
+                onChange={handlePaginationChange}
+                shape="rounded" 
+                color="primary"
+              />
             )
             : (
               <Typography 
