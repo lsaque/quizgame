@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Typography, useTheme } from '@mui/material';
 import Chip from '@mui/material/Chip';
 import CircleIcon from '@mui/icons-material/Circle';
 import Container from '../../layout/InternalGrid';
@@ -9,12 +9,13 @@ interface ISubtitleProps{
 }
 
 const Subtitle: React.FC<ISubtitleProps> = ({ children, difficulty }) => {
-  
+  const theme = useTheme();
   const icon = (
     <Chip 
       icon={<CircleIcon fontSize="small"/>} 
       label={difficulty} 
-      sx={{ marginLeft: 1, marginBottom: '5px' }}
+      sx={{ marginLeft: 1, marginBottom: '4.5px' }}
+      color={theme.palette.mode === 'dark' ? 'default' : 'primary'}
       size="small"
     />
   )
@@ -25,7 +26,9 @@ const Subtitle: React.FC<ISubtitleProps> = ({ children, difficulty }) => {
       <Typography 
         color="text.secondary"
         marginTop={3.4}
-        maxWidth={400}
+        // maxWidth={400}
+        sx={{ maxWidth: typeof difficulty !== 'undefined' ? null : 400 }}
+        // className={quiz ? "quizSubtitle" : "" }
         fontSize={18}
       >
         {children} 

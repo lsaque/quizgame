@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FormControlLabel, useTheme } from '@mui/material';
+import parse from 'html-react-parser';
 
 import RadioButton from '../../inputs/RadioButton';
 
@@ -15,17 +16,19 @@ const ControlLabel: React.FC<IControlLabelProps> = ({value, ...rest}) => {
 
   return (
     <FormControlLabel 
-      {...rest}
-      value={value}
-      label={value}
+      //@ts-ignore
+      label={parse(value)}
+      value={parse(value)}
       onClick={() => setFocus(true)}
       onBlur={() => setFocus(false)}
+      onDoubleClick={() => setFocus(false)}
       sx={{
         border: isFocused 
-        ?  `2px solid ${theme.palette.primary.main}` 
+        ? `2px solid ${theme.palette.primary.main}` 
         : theme.palette.mode === 'dark' ? '1px solid rgba(118, 118, 118, 0.329)' : '1px solid rgba(133, 133, 133, 0.479)',
       }}
       control={<RadioButton/>}
+      {...rest}
     />
   );
 }

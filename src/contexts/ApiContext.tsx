@@ -12,6 +12,7 @@ const DEFAULT_VALUE = {
   clientState: {
     name: '',
     answers: [],
+    alternatives: [],
   },
   setClientState: () => {},
   setApiState: () => {},

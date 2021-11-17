@@ -6,11 +6,13 @@ const DEFAULT_VALUE = {
   isLastStep: false,
   maxSteps: 0,
   activeStep: 0,
+  numberQuestionsAnswered: 0,
   setPagination: () => {},
   setLoading: () => {},
   setLastStep: () => {},
   setMaxSteps: () => {},
   setActiveStep: () => {},
+  setNumberQuestionsAnswered: () => {},
   handlePaginationChange: (step: number) => {},
 }
 
@@ -20,11 +22,13 @@ type PropsFooterModeContext = {
   isLastStep: boolean,
   maxSteps: number,
   activeStep: number,
+  numberQuestionsAnswered: number,
   setPagination: React.Dispatch<React.SetStateAction<boolean>>
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   setLastStep: React.Dispatch<React.SetStateAction<boolean>>,
   setMaxSteps: React.Dispatch<React.SetStateAction<number>>,
   setActiveStep: React.Dispatch<React.SetStateAction<number>>,
+  setNumberQuestionsAnswered: React.Dispatch<React.SetStateAction<number>>,
   handlePaginationChange: any | React.Dispatch<React.SetStateAction<number>>,
 }
 
@@ -37,6 +41,7 @@ const FooterModeProvider: React.FC = ({ children }) => {
   const [isLastStep, setLastStep] = useState<boolean>(DEFAULT_VALUE.isLastStep);
   const [maxSteps, setMaxSteps] = useState<number>(DEFAULT_VALUE.maxSteps);
   const [activeStep, setActiveStep] = useState<number>(DEFAULT_VALUE.activeStep);
+  const [numberQuestionsAnswered, setNumberQuestionsAnswered] = useState<number>(DEFAULT_VALUE.activeStep);
   
   const handlePaginationChange = (event: React.ChangeEvent<unknown>, step: number) => {
     setActiveStep(step - 1);
@@ -53,6 +58,8 @@ const FooterModeProvider: React.FC = ({ children }) => {
     setMaxSteps,
     activeStep,
     setActiveStep,
+    numberQuestionsAnswered,
+    setNumberQuestionsAnswered,
     handlePaginationChange,
   }
 

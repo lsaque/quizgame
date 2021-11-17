@@ -1,5 +1,3 @@
-import { IncorrectAnswer } from "./incorrectAnswer";
-
 export type Result = {
   category: string,
   type: string,
