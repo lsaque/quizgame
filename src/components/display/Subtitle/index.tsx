@@ -26,10 +26,8 @@ const Subtitle: React.FC<ISubtitleProps> = ({ children, difficulty }) => {
       <Typography 
         color="text.secondary"
         marginTop={3.4}
-        // maxWidth={400}
-        sx={{ maxWidth: typeof difficulty !== 'undefined' ? null : 400 }}
-        // className={quiz ? "quizSubtitle" : "" }
         fontSize={18}
+        sx={{ maxWidth: typeof difficulty !== 'undefined' ? null : 400 }}
       >
         {children} 
         {renderIcon}

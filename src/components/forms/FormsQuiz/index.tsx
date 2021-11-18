@@ -1,18 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Grid, Box, FormControl, RadioGroup } from '@mui/material';
 import { FormikProps, useFormik } from 'formik';
+import * as yup from 'yup';
 import SwipeableViews from 'react-swipeable-views';
 import parse from 'html-react-parser';
 
 import Header from '../../display/Header';
 import Subtitle from '../../display/Subtitle';
 import ApiData from '../../../types/ApiData';
-import FormsAnswers from '../../forms/FormsAnswers';
+import Container from '../../layout/QuizContainer';
 import Button from '../../inputs/Button';
 import InternalContainer from '../../layout/InternalGrid';
 import FooterModeContext from '../../../contexts/FooterModeContext';
 import ApiContext from '../../../contexts/ApiContext';
 import ControlLabel from '../../feedback/ControlLabel';
+import Alert from '../../feedback/Alert';
+import { useNavigate } from 'react-router-dom';
+import { ROOT } from '../../../utils/constants/routes.constants';
 
 interface IStepperQuizProps {
   data: ApiData
@@ -22,8 +26,8 @@ interface MyValues {
   answers: string[],
 }
 
-const StepperQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
-  const { clientState, setApiState } = useContext(ApiContext);
+
+const FormsQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
 
   useEffect(() => {
     data.results.forEach( async (element) => {
@@ -37,8 +41,6 @@ const StepperQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
     });
   },[])
 
-  const dataResults = data.results;
-
   const { 
     isLoading,
     setLoading,
@@ -48,25 +50,83 @@ const StepperQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
     setActiveStep,
     setNumberQuestionsAnswered
   } = useContext(FooterModeContext);
-
+  
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [isValid, setValidation] = useState(false);
+  const navigate = useNavigate();
+  const dataResults = data.results;
   setMaxSteps(dataResults.length);
+
+  const validationSchema = yup.object({
+    answers: yup
+      .array()
+      .min(maxSteps, 'You need to answer all the questions to get the result. ✌'),
+  });
+  
+  const formik: FormikProps<MyValues> = useFormik<MyValues>({
+    initialValues: {
+      answers: [],
+    },
+    // validateOnChange: false,
+    // validateOnBlur: false,
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      console.log(values)
+      setLoading(true);
+        setTimeout(() => {
+          alert('opa')
+          //   setClientState({name: values.name});
+          //   setLoading(false);
+          //   navigate(QUIZ);
+        }, 500);
+    },
+  });
+
+  const handleSubmit = () => {
+    if(activeStep === maxSteps - 1){
+      if(formik.isValidating){
+        setValidation(false);
+        formik.handleSubmit();
+      } else {setValidation(true)};
+    } else {handleNext()};
+  }
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
-
-  const radioNextRadioButton = (index: number) => {
+  
+  const handleModalClose = () => {
+    formik.resetForm();
+    setLoading(true);
+    setTimeout(() => {
+      setModalOpen(false);
+      setLoading(false);
+      navigate(ROOT);
+    }, 500)
+  };
+  
+  const handleBack = () => {
+    if(activeStep !== maxSteps - 1){
+      if (activeStep === 0) {
+        setModalOpen(true);
+      } else {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+      }
+    }
+  };
+  
+  const radioNextButton = (index: number) => {
     setTimeout(() => {
       if(activeStep !== maxSteps - 1){
         setActiveStep(index + 1);
       }
     }, 500)
   };
-
+  
   const handleStepChange = (step: number) => {
     setActiveStep(step);
   };
-
+  
   const getRandomAnswers = (array: string[]) => {
     var currentIndex = array.length, temporaryValue, randomIndex;
     while (0 !== currentIndex) {
@@ -78,31 +138,6 @@ const StepperQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
     }
     return array;
   }
-  
-  const handleSubmit = () => {
-    if(activeStep === maxSteps - 1){
-      formik.handleSubmit();
-      setLoading(true);
-    } else {
-      handleNext();
-    }
-  }
-
-  const formik: FormikProps<MyValues> = useFormik<MyValues>({
-    initialValues: {
-      answers: [],
-    },
-    // validationSchema: validationSchema,
-    onSubmit: (values) => {
-      console.log(values)
-      // setLoading(true);
-      // setTimeout(() => {
-        //   setClientState({name: values.name});
-        //   setLoading(false);
-        //   navigate(QUIZ);
-        // }, 500);
-      },
-    });
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -120,12 +155,12 @@ const StepperQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
                   ? <div>
                       <Header questions>{parse(item.question)}</Header>
                       <Subtitle difficulty={item.difficulty}>{parse(item.category)}</Subtitle>
-                      <FormsAnswers>
+                      <Container>
                         <FormControl component="fieldset">
                           <RadioGroup 
                             name={item.question}
                             value={formik.values.answers[index]}
-                            onClick={() => radioNextRadioButton(index)}
+                            onClick={() => radioNextButton(index)}
                             onChange={(event) => {
                               formik.setFieldValue(`answers[${index}]`, event.target.value);
                               formik.handleChange(`answers[${index}]`);
@@ -137,7 +172,7 @@ const StepperQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
                             ))}
                           </RadioGroup>
                         </FormControl>
-                      </FormsAnswers>
+                      </Container>
                     </div>
                   : null 
                 }
@@ -156,23 +191,34 @@ const StepperQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
                   name="submitButton"
                   type="submit"
                   text="Finish"
+                  disabled={!((formik.values.answers.length === maxSteps) && formik.dirty)}
                   loading={isLoading}
                   onClick={async () => handleSubmit()} 
                 /> : 
                 <Button
-                  typeStyle="text" 
                   variant="contained"
-                  name="nextButton"
-                  text="Next"
-                  onClick={handleNext}
+                  typeStyle="text"
+                  name="returnButton"
+                  text="Back"
+                  onClick={handleBack}
                 />
               }
             </Grid>
           </Grid>
+          <Alert 
+            isOpenModal={isModalOpen} 
+            title="Quit the quiz"
+            loading={isLoading} 
+            content="If you leave the quiz you will lose all your answering progress, do you really want to leave?" 
+            cancelTitle="No, return to quiz" 
+            acceptTitle="Yes, leave" 
+            onClose={() => setModalOpen(false)} 
+            handleModalClose={() => handleModalClose()}       
+          />
         </InternalContainer>
       </Grid>
     </form>
   );
 }
 
-export default StepperQuiz;
+export default FormsQuiz;

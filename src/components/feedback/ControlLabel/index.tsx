@@ -22,12 +22,14 @@ const ControlLabel: React.FC<IControlLabelProps> = ({value, ...rest}) => {
       onClick={() => setFocus(true)}
       onBlur={() => setFocus(false)}
       onDoubleClick={() => setFocus(false)}
+      control={<RadioButton/>}
       sx={{
         border: isFocused 
         ? `2px solid ${theme.palette.primary.main}` 
-        : theme.palette.mode === 'dark' ? '1px solid rgba(118, 118, 118, 0.329)' : '1px solid rgba(133, 133, 133, 0.479)',
+        : theme.palette.mode === 'dark' 
+          ? '1px solid rgba(118, 118, 118, 0.329)' 
+          : '1px solid rgba(133, 133, 133, 0.479)',
       }}
-      control={<RadioButton/>}
       {...rest}
     />
   );

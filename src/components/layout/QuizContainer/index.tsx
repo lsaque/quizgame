@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Grid } from '@mui/material';
 
-import InternalContainer from '../../layout/InternalGrid';
+import InternalContainer from '../InternalGrid';
 
-const FormsAnswers: React.FC = ({ children }) => {
+const QuizContainer: React.FC = ({ children }) => {
  
   return (
     <InternalContainer>
@@ -16,4 +16,4 @@ const FormsAnswers: React.FC = ({ children }) => {
   );
 }
 
-export default FormsAnswers;
+export default QuizContainer;

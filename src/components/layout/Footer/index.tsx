@@ -96,7 +96,10 @@ const Footer: React.FC = () => {
           <Stack 
             direction="row" 
             spacing={1}
-            sx={{ justifyContent: { xs: 'center', md: 'flex-end' }}}
+            sx={{ 
+              justifyContent: { xs: 'center', md: 'flex-end' },
+              display: { xs: isPagination ? 'none' : 'flex', md: 'flex'}
+            }}
           >
             { socialMedias?.map(item => (
               <Link key={item.key} href={item.href} target="_blank" color="inherit"> 

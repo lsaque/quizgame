@@ -3,7 +3,6 @@ import { LoadingButton } from '@mui/lab';
 
 interface IButtonProps {
   typeStyle: 'icon' | 'text',
-  // variant: 'contained' | 'outlined',
   icon?: Object | null,
   text?: string | null, 
   href?: any,

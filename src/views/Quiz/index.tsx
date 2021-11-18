@@ -7,7 +7,7 @@ import ApiContext from '../../contexts/ApiContext';
 
 import CardVideo from '../../components/surfaces/CardVideo';
 import video from '../../assets/videos/transformingMan.mp4';
-import StepperQuiz from '../../components/navigation/StepperQuiz';
+import FormsQuiz from '../../components/forms/FormsQuiz';
 
 const api = {
   responseCode: 0,
@@ -36,18 +36,18 @@ const api = {
         "Monsters, Inc."
       ]
     },
-    // {
-    //   category: "History",
-    //   type: "multiple",
-    //   difficulty: "medium",
-    //   question: "What was the total length of the Titanic?",
-    //   correct_answer: "882 ft | 268.8 m",
-    //   incorrect_answers: [
-    //     "759 ft | 231.3 m",
-    //     "1042 ft | 317.6 m",
-    //     "825 ft | 251.5 m"
-    //   ]
-    // },
+    {
+      category: "History",
+      type: "multiple",
+      difficulty: "medium",
+      question: "What was the total length of the Titanic?",
+      correct_answer: "882 ft | 268.8 m",
+      incorrect_answers: [
+        "759 ft | 231.3 m",
+        "1042 ft | 317.6 m",
+        "825 ft | 251.5 m"
+      ]
+    },
     // {
     //   category: "Entertainment: Music",
     //   type: "multiple",
@@ -77,9 +77,10 @@ const api = {
 
 const Quiz: React.FC = () => {
 
-  const { setPagination, activeStep, maxSteps, numberQuestionsAnswered } = useContext(FooterModeContext);
-  const { clientState, apiState } = useContext(ApiContext);
-  const progress = (numberQuestionsAnswered / maxSteps) * 100;
+  const { setPagination, maxSteps, numberQuestionsAnswered } = useContext(FooterModeContext);
+  const { apiState } = useContext(ApiContext);
+  const temporaryValue = (numberQuestionsAnswered / maxSteps) * 100;
+  const progress = temporaryValue <= 100 ? temporaryValue : 100;
 
   useEffect(() => {
     setPagination(true);
@@ -96,7 +97,7 @@ const Quiz: React.FC = () => {
       >
 
         <Grid item xs={12} md={6}>
-          <StepperQuiz data={apiState}/>
+          <FormsQuiz data={api}/>
         </Grid> 
 
         <Grid item xs={12} md={6} marginTop={{ xs: '30px', lg: 0 }} display={{ xs: 'none', md: 'block' }}>
