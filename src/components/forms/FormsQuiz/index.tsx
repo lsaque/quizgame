@@ -15,6 +15,7 @@ import FooterModeContext from '../../../contexts/FooterModeContext';
 import ApiContext from '../../../contexts/ApiContext';
 import ControlLabel from '../../feedback/ControlLabel';
 import Alert from '../../feedback/Alert';
+import ResultModal from '../../feedback/ResultModal';
 import { useNavigate } from 'react-router-dom';
 import { ROOT } from '../../../utils/constants/routes.constants';
 
@@ -26,6 +27,40 @@ interface MyValues {
   answers: string[],
 }
 
+const clientData = {
+  name: 'Isaque',
+  quantity_question: 2,
+  quantity_wrong_answers: 1,
+  quantity_correct_answers: 1,
+  results: [
+    {
+      category: "Entertainment: Music kflsj kljsflkjf lkjslkfj ",
+      difficulty: "easy",
+      question: "Ringo Starr of The Beatles mainly played what instrument?",
+      correct_answer: "Drums",
+      client_answer: "Guitar",
+      answers: [
+        "Bass",
+        "Guitar",
+        "Piano",
+        "Drums"
+      ],
+    },
+    {
+      category: "Entertainment: Film",
+      difficulty: "hard",
+      question: "In what Disney movie can you spot the character &quot;Pac-Man&quot; in if you look closely enough in some scenes?",
+      correct_answer: "Tron",
+      client_answer: "Tron",
+      incorrect_answers: [
+        "Big Hero 6",
+        "Fantasia",
+        "Monsters, Inc.",
+        "Tron"
+      ]
+    },
+  ]
+}
 
 const FormsQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
 
@@ -52,7 +87,6 @@ const FormsQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
   } = useContext(FooterModeContext);
   
   const [isModalOpen, setModalOpen] = useState(false);
-  const [isValid, setValidation] = useState(false);
   const navigate = useNavigate();
   const dataResults = data.results;
   setMaxSteps(dataResults.length);
@@ -72,23 +106,22 @@ const FormsQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log(values)
-      setLoading(true);
-        setTimeout(() => {
-          alert('opa')
+      // setLoading(true);
+        // setTimeout(() => {
+          // alert('opa')
           //   setClientState({name: values.name});
           //   setLoading(false);
           //   navigate(QUIZ);
-        }, 500);
+        // }, 500);
     },
   });
 
   const handleSubmit = () => {
     if(activeStep === maxSteps - 1){
       if(formik.isValidating){
-        setValidation(false);
         formik.handleSubmit();
-      } else {setValidation(true)};
-    } else {handleNext()};
+      };
+    } else handleNext();
   }
 
   const handleNext = () => {
@@ -180,7 +213,9 @@ const FormsQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
             ))}
           </SwipeableViews>
         </Grid>
-
+        
+        <ResultModal data={clientData}/>
+        
         <InternalContainer>
           <Grid container> 
             <Grid item xs={3} mt={4}>

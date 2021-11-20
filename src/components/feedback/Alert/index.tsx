@@ -18,16 +18,6 @@ interface IAlertProps {
 
 const Alert: React.FC<IAlertProps> = ({title, content,onClose, cancelTitle, acceptTitle, handleModalClose, isOpenModal, loading, ...rest}) => {
 
-  // const [isOpenModal, setOpenModal] = useState(false);
-
-  // const handleModalOpen = () => {
-  //   setOpenModal(true);
-  // };
-
-  // const handleModalClose = () => {
-  //   setOpenModal(false);
-  // };
-
   return (
     <Dialog
       maxWidth="xs"
@@ -46,7 +36,7 @@ const Alert: React.FC<IAlertProps> = ({title, content,onClose, cancelTitle, acce
       </DialogContent>
       <DialogActions>
         <Grid container spacing={1} justifyContent="center" margin={1}>
-          <Grid item xs={4}>
+          <Grid item xs={5} sm={4}>
             <Button 
               onClick={handleModalClose} 
               typeStyle="text"
@@ -55,7 +45,8 @@ const Alert: React.FC<IAlertProps> = ({title, content,onClose, cancelTitle, acce
               text={acceptTitle}
             />
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={7
+          } sm={8}>
             <Button 
               onClick={onClose} 
               typeStyle="text"

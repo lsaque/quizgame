@@ -6,9 +6,10 @@ import Container from '../../layout/InternalGrid';
 
 interface ISubtitleProps{
   difficulty?: string | undefined;
+  result?: boolean | undefined;
 }
 
-const Subtitle: React.FC<ISubtitleProps> = ({ children, difficulty }) => {
+const Subtitle: React.FC<ISubtitleProps> = ({ children, result, difficulty }) => {
   const theme = useTheme();
   const icon = (
     <Chip 
@@ -25,9 +26,9 @@ const Subtitle: React.FC<ISubtitleProps> = ({ children, difficulty }) => {
     <Container>
       <Typography 
         color="text.secondary"
-        marginTop={3.4}
+        marginTop={result ? 0.7 : 3.4}
         fontSize={18}
-        sx={{ maxWidth: typeof difficulty !== 'undefined' ? null : 400 }}
+        sx={{ maxWidth: typeof difficulty !== 'undefined' || result ? null : 400 }}
       >
         {children} 
         {renderIcon}

@@ -258,6 +258,13 @@ const Theme = (mode: PaletteMode) => useMemo(
           }
         }
       },
+      MuiDialogContent: {
+        defaultProps: {
+          style: {
+            overflowX: 'hidden',
+          }
+        }
+      }
     },
   }),
   [mode]

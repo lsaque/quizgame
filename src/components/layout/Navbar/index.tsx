@@ -64,7 +64,7 @@ export default function Navbar() {
 
         <Box flexGrow={1}>
           <Link href={ROOT}>
-              <Logo fill={theme.palette.text.primary} />
+            <Logo fill={theme.palette.text.primary} />
           </Link>
         </Box>
 

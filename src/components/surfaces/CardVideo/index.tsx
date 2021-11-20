@@ -32,7 +32,6 @@ const CardVideo: React.FC<ICardVideoProps> = ({ video, progress }) => {
           controlsList="nodownload"
           image={video}
           sx={{
-            maxHeight: 593,
             objectFit: 'cover',
             backgroundColor: 'background.default',
             filter: theme.palette.mode === 'dark' ? 'invert(0)' : 'grayscale(1) invert(0.9)',
@@ -40,7 +39,6 @@ const CardVideo: React.FC<ICardVideoProps> = ({ video, progress }) => {
         />
       </Card>
     </Container>
-
   );
 }
 

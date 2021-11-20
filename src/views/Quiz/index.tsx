@@ -36,18 +36,18 @@ const api = {
         "Monsters, Inc."
       ]
     },
-    {
-      category: "History",
-      type: "multiple",
-      difficulty: "medium",
-      question: "What was the total length of the Titanic?",
-      correct_answer: "882 ft | 268.8 m",
-      incorrect_answers: [
-        "759 ft | 231.3 m",
-        "1042 ft | 317.6 m",
-        "825 ft | 251.5 m"
-      ]
-    },
+    // {
+    //   category: "History",
+    //   type: "multiple",
+    //   difficulty: "medium",
+    //   question: "What was the total length of the Titanic?",
+    //   correct_answer: "882 ft | 268.8 m",
+    //   incorrect_answers: [
+    //     "759 ft | 231.3 m",
+    //     "1042 ft | 317.6 m",
+    //     "825 ft | 251.5 m"
+    //   ]
+    // },
     // {
     //   category: "Entertainment: Music",
     //   type: "multiple",
