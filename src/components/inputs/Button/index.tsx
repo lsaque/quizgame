@@ -6,10 +6,11 @@ interface IButtonProps {
   icon?: Object | null,
   text?: string | null, 
   href?: any,
+  small?: boolean,
   [x: string]: any,
 }
 
-const Button: React.FC<IButtonProps> = ({ icon, href, text, typeStyle, ...rest }) => {
+const Button: React.FC<IButtonProps> = ({ icon, href, text, typeStyle, small, ...rest }) => {
 
   return (
     <LoadingButton
@@ -17,7 +18,7 @@ const Button: React.FC<IButtonProps> = ({ icon, href, text, typeStyle, ...rest }
       href={href}
       className="customButton"
       sx={{
-        height: '56px',
+        height: small ? '40px' : '56px',
         width: '100%',
       }}
     >

@@ -9,6 +9,7 @@ import InternalContainer from '../../layout/InternalGrid';
 import Input from '../../inputs/Input';
 import Button from '../../inputs/Button';
 import ApiContext from '../../../contexts/ApiContext';
+import ClientContext from '../../../contexts/ClientContext';
 
 interface MyValues { 
   name: string 
@@ -25,7 +26,7 @@ const validationSchema = yup.object({
 const FormsPrepare: React.FC = () => {
   const navigate = useNavigate();
   const [isLoading, setLoading] = useState<boolean>(false);
-  const { setClientState } = useContext(ApiContext);
+  const { setName } = useContext(ClientContext);
 
   const formik: FormikProps<MyValues> = useFormik<MyValues>({
     initialValues: {
@@ -35,7 +36,7 @@ const FormsPrepare: React.FC = () => {
     onSubmit: (values) => {
       setLoading(true);
       setTimeout(() => {
-        setClientState({name: values.name});
+        setName(values.name);
         setLoading(false);
         navigate(QUIZ);
       }, 500);

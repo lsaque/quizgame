@@ -33,6 +33,7 @@ const CardVideo: React.FC<ICardVideoProps> = ({ video, progress }) => {
           image={video}
           sx={{
             objectFit: 'cover',
+            maxHeight: 593,
             backgroundColor: 'background.default',
             filter: theme.palette.mode === 'dark' ? 'invert(0)' : 'grayscale(1) invert(0.9)',
           }}

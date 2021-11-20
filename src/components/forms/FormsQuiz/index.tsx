@@ -18,6 +18,10 @@ import Alert from '../../feedback/Alert';
 import ResultModal from '../../feedback/ResultModal';
 import { useNavigate } from 'react-router-dom';
 import { ROOT } from '../../../utils/constants/routes.constants';
+import ClientContext from '../../../contexts/ClientContext';
+import { Result } from '../../../types/ApiData/lib/result';
+import ClientResult from '../../../types/ClientData/lib/clientResult';
+import Client from '../../../types/ClientData';
 
 interface IStepperQuizProps {
   data: ApiData
@@ -29,15 +33,15 @@ interface MyValues {
 
 const clientData = {
   name: 'Isaque',
-  quantity_question: 2,
-  quantity_wrong_answers: 1,
-  quantity_correct_answers: 1,
+  quantityQuestion: 2,
+  quantityWrongAnswers: 1,
+  quantityCorrectAnswers: 1,
   results: [
     {
       category: "Entertainment: Music kflsj kljsflkjf lkjslkfj ",
       difficulty: "easy",
       question: "Ringo Starr of The Beatles mainly played what instrument?",
-      correct_answer: "Drums",
+      correct_answer: "Guitar",
       client_answer: "Guitar",
       answers: [
         "Bass",
@@ -51,8 +55,8 @@ const clientData = {
       difficulty: "hard",
       question: "In what Disney movie can you spot the character &quot;Pac-Man&quot; in if you look closely enough in some scenes?",
       correct_answer: "Tron",
-      client_answer: "Tron",
-      incorrect_answers: [
+      client_answer: "Big Hero 6",
+      answers: [
         "Big Hero 6",
         "Fantasia",
         "Monsters, Inc.",
@@ -68,7 +72,7 @@ const FormsQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
     data.results.forEach( async (element) => {
       try {
         if(element.incorrect_answers.length === 3 || element.incorrect_answers.length === 1){
-          element.incorrect_answers.push(element.correct_answer)
+          element.incorrect_answers.push(element.correct_answer);
         }
       } finally {
         element.incorrect_answers=getRandomAnswers(element.incorrect_answers).slice(0);
@@ -85,8 +89,10 @@ const FormsQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
     setActiveStep,
     setNumberQuestionsAnswered
   } = useContext(FooterModeContext);
-  
+
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isResultOpen, setResultOpen] = useState(false);
+  
   const navigate = useNavigate();
   const dataResults = data.results;
   setMaxSteps(dataResults.length);
@@ -97,24 +103,52 @@ const FormsQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
       .min(maxSteps, 'You need to answer all the questions to get the result. ✌'),
   });
   
+  const { 
+    setQuantityCorrectAnswers,
+    setQuantityWrongAnswers,
+    setQuantityQuestion,
+    setIsCorrectAnswer,
+    setResults,
+  } = useContext(ClientContext);
+
   const formik: FormikProps<MyValues> = useFormik<MyValues>({
     initialValues: {
       answers: [],
     },
-    // validateOnChange: false,
-    // validateOnBlur: false,
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values)
-      // setLoading(true);
-        // setTimeout(() => {
-          // alert('opa')
-          //   setClientState({name: values.name});
-          //   setLoading(false);
-          //   navigate(QUIZ);
-        // }, 500);
+      setQuantityQuestion(maxSteps);
+
+      data.results.forEach((element, index) => {
+        setResults(state => [...state, {
+          category: element.category,
+          difficulty: element.difficulty,
+          question: element.question,
+          correct_answer: element.correct_answer,
+          client_answer: values.answers[index],
+          answers: element.incorrect_answers
+        }])
+
+        if(values.answers[index] === element.correct_answer){
+          setQuantityCorrectAnswers(state => state + 1);
+          setIsCorrectAnswer(state => [...state, true]);
+        } else {
+          setQuantityWrongAnswers(state => state + 1);
+          setIsCorrectAnswer(state => [...state, false]);
+        }
+      });
+
+      setResultOpen(true);
     },
   });
+
+  const handleQuizSubmit = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      navigate(ROOT);
+    }, 1000);
+  }
 
   const handleSubmit = () => {
     if(activeStep === maxSteps - 1){
@@ -214,7 +248,11 @@ const FormsQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
           </SwipeableViews>
         </Grid>
         
-        <ResultModal data={clientData}/>
+        <ResultModal 
+          loading={isLoading}
+          isOpenModal={isResultOpen} 
+          handleModalClose={() => handleQuizSubmit()}
+        />
         
         <InternalContainer>
           <Grid container> 

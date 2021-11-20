@@ -97,7 +97,7 @@ const Quiz: React.FC = () => {
       >
 
         <Grid item xs={12} md={6}>
-          <FormsQuiz data={api}/>
+          <FormsQuiz data={apiState}/>
         </Grid> 
 
         <Grid item xs={12} md={6} marginTop={{ xs: '30px', lg: 0 }} display={{ xs: 'none', md: 'block' }}>

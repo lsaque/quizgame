@@ -5,6 +5,7 @@ import { responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
 import { ColorModeContext } from './contexts/ColorModeContext';
 import { FooterModeProvider } from './contexts/FooterModeContext';
 import { ApiProvider } from './contexts/ApiContext';
+import { ClientProvider } from './contexts/ClientContext';
 
 import customTheme from './assets/styles/Theme';
 
@@ -17,7 +18,6 @@ import AppContent from './components/layout/Content';
 const App: React.FC = () => {
 
   const [mode, setMode] = useState<'light' | 'dark'>('dark');
-  // const [state, setState] = useState(DEFAULT_VALUE.);
   
   let theme = customTheme(mode);
   theme = responsiveFontSizes(theme);
@@ -41,9 +41,11 @@ const App: React.FC = () => {
           <AppContent>
             <FooterModeProvider>
               <ApiProvider>
-                <Navbar/>
-                <Routes/>
-                <Footer/>
+                <ClientProvider>
+                  <Navbar/>
+                  <Routes/>
+                  <Footer/>
+                </ClientProvider>
               </ApiProvider>
             </FooterModeProvider>
           </AppContent>

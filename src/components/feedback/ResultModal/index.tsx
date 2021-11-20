@@ -1,6 +1,6 @@
-import react, { useEffect, useRef, useState } from 'react';
+import react, { useEffect, useRef, useState, useContext } from 'react';
 import parse from 'html-react-parser';
-import { Dialog, DialogProps, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Box, useTheme, FormControl, RadioGroup, Button, Divider } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, Grid, Box, useTheme, FormControl, RadioGroup, Alert } from '@mui/material';
 
 import { ReactComponent as Logo } from '../../../assets/images/logo/logo.svg';
 import video from '../../../assets/videos/runningHorse.mp4';
@@ -9,27 +9,24 @@ import Subtitle from '../../display/Subtitle';
 import Header from '../../display/Header';
 import ProgressTag from '../../feedback/ProgressTag';
 
-import ApiData from '../../../types/ApiData';
 import Container from '../../layout/QuizContainer';
 import ControlCheckAnswer from '../ControlCheckAnswer';
+import ClientData from '../../../types/ClientData';
+import ApiData from '../../../types/ApiData';
+import ClientContext from '../../../contexts/ClientContext';
+
+import Button from '../../inputs/Button';
 
 interface IResultModalProps {
-  data: any
+  isOpenModal: boolean,
+  loading: boolean,
+  handleModalClose: React.MouseEventHandler<HTMLButtonElement>,
 }
 
-const ResultModal: React.FC<IResultModalProps> = ({data}) => {
-  const text = 'Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cras mattis consectetur purus sit amet fermentum.'
+const ResultModal: React.FC<IResultModalProps> = ({ isOpenModal, handleModalClose, loading }) => {
   const [open, setOpen] = useState(false);
   const descriptionElementRef = useRef<HTMLElement>(null);
   const theme = useTheme();
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   useEffect(() => {
     if (open) {
@@ -40,98 +37,137 @@ const ResultModal: React.FC<IResultModalProps> = ({data}) => {
     }
   }, [open]);
 
+  const { 
+    name,
+    quantityCorrectAnswers,
+    quantityWrongAnswers,
+    quantityQuestion,
+    results,
+  } = useContext(ClientContext);
+
+  const handleSetTypeStyle = (correctAnswer: string, clientAnswer: string, currentAnswer: string): string => {
+    if((correctAnswer === clientAnswer) && (clientAnswer === currentAnswer)){
+      return "success"
+    } else if(correctAnswer === currentAnswer){
+      return "success"
+    } else if((correctAnswer  !== clientAnswer) && (clientAnswer === currentAnswer)){
+      return "error"
+    } else {
+      return "default"
+    }
+  }
+
+  const progress = [
+    {
+      typeStyle: "info",
+      resultNumber: quantityQuestion,
+    },
+    {
+      typeStyle: "error",
+      resultNumber: quantityWrongAnswers,
+    },
+    {
+      typeStyle: "success",
+      resultNumber: quantityCorrectAnswers,
+    },
+  ]
+
   return (
-    <div>
-      <Button onClick={handleClickOpen}>Abrir modal</Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        scroll="paper"
-        maxWidth="md"
-        // aria-labelledby="scroll-dialog-title"
-        // aria-describedby="scroll-dialog-description"
-      >
-        <DialogContent dividers={true}>
-          <Grid container>
-            <Grid container justifyContent="space-between" paddingY={5}>
-              <Box flexGrow={1} maxWidth={600}>
-                <Header questions>Congrats, Isaque 🎉</Header>
-                <Subtitle result>Scroll down  to see the correct and incorrect answers</Subtitle>
-              </Box>
-              <Box paddingRight={5} display={{xs: 'none', md: 'flex'}}>
-                <Logo fill={theme.palette.text.primary} />
-              </Box>
-            </Grid>
-
-            <Grid item xs={12}>
-              <CardVideo video={video}/>
-            </Grid>
-
-            <Grid container spacing={2} paddingY={4}>
-              <Grid item xs={12} md={4}>
-                <ProgressTag 
-                  name="Isaque" 
-                  typeStyle="info"
-                  resultNumber={10} 
-                />
-              </Grid>
-              <Grid item xs={12} md={4}>
-              <ProgressTag 
-                  name="Isaque" 
-                  typeStyle="error"
-                  resultNumber={2} 
-                />
-              </Grid>
-              <Grid item xs={12} md={4}>
-              <ProgressTag 
-                  name="Isaque" 
-                  typeStyle="success"
-                  resultNumber={8} 
-                />
-              </Grid>
-            </Grid>
-
-            <Grid 
-              container 
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              {data.results?.map((item, index) => (
-                <Grid item xs={12} md={10} key={index} mt={{xs: 3, md: 15}}>
-                  <Header questions>{parse(item.question)}</Header>
-                  <Subtitle difficulty={item.difficulty}>{parse(item.category)}</Subtitle>
-                  <Container>
-                    <FormControl component="fieldset" disabled>
-                      <RadioGroup 
-                        name={item.question}
-                        value={parse(item.correct_answer)}
-                      >
-                        {item.incorrect_answers.map((value, key) => (
-                          <ControlCheckAnswer 
-                            checkAnswers={value === item.correct_answer[1] ? 'correct' : 'incorrect'}
-                            value={value}
-                            key={key}
-                          />
-                        ))}
-                      </RadioGroup>
-                    </FormControl>
-                  </Container>
-                </Grid>
-              ))}
-            </Grid>
+    <Dialog
+      open={isOpenModal}
+      // onClose={() => handleModalClose}
+      scroll="paper"
+      maxWidth="md"
+      onBackdropClick={handleModalClose}
+    >
+      <DialogContent dividers={true}>
+        <Grid container>
+          <Grid container justifyContent="space-between" paddingY={5}>
+            <Box flexGrow={1} maxWidth={600}>
+              <Header questions>Congrats, {name === '' ? 'Sapient' : name} 🎉</Header>
+              <Subtitle result>Scroll down  to see the correct and incorrect answers</Subtitle>
+            </Box>
+            <Box paddingRight={5} display={{xs: 'none', md: 'flex'}}>
+              <Logo fill={theme.palette.text.primary} />
+            </Box>
           </Grid>
-          
-        </DialogContent>
 
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+          <Grid item xs={12}>
+            <CardVideo video={video}/>
+          </Grid>
+
+          <Grid container spacing={2} paddingY={4}>
+            {progress?.map((element, index) => (
+            <Grid item xs={12} md={4} key={index}>
+              <ProgressTag 
+                name={typeof name === 'undefined' ? 'sapient' : name} 
+                typeStyle={element.typeStyle}
+                resultNumber={element.resultNumber}
+                quantityQuestion={quantityQuestion}
+              />
+            </Grid>
+            ))}
+          </Grid>
+
+          <Grid 
+            container 
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            {results.map((result, index) => (
+              <Grid item xs={12} md={10} key={index} mt={{xs: 3, md: 15}}>
+                <Header questions>{parse(result.question)}</Header>
+                <Subtitle difficulty={result.difficulty}>{parse(result.category)}</Subtitle>
+                <Container>
+                  <FormControl component="fieldset" disabled >
+                    <RadioGroup 
+                      name={result.question}
+                      value={parse(result.client_answer)}
+                    >
+                      {result.answers.map((answer, key) => (
+                        <ControlCheckAnswer
+                          typeStyle={handleSetTypeStyle(result.correct_answer, result.client_answer, answer)}
+                          value={answer}
+                          key={key}
+                        />
+                      ))}
+                    </RadioGroup>
+                    {result.correct_answer === result.client_answer 
+                    ? (
+                      <Alert variant="standard" severity="success" sx={{marginTop: 1.5}}>
+                        Congratulations! You got this right!
+                      </Alert>
+                    ) : ( 
+                      <Alert variant="standard" severity="error" sx={{marginTop: 1.5}}>
+                        Ops, you missed! Right answer: {parse(result.correct_answer)}
+                      </Alert>
+                    )}
+                  </FormControl>
+                </Container>
+              </Grid>
+            ))}
+          </Grid>
+        </Grid>
+      </DialogContent>
+      <DialogActions>
+        <Grid container justifyContent="right">
+          <Grid item xs={12} sm={2.5} md={1.5}>
+            <Button 
+              autoFocus 
+              small
+              typeStyle="text"
+              text="Leave to Home"
+              variant="text"
+              loading={loading}
+              onClick={handleModalClose}
+            />
+          </Grid>
+        </Grid>
+      </DialogActions>
+    </Dialog>
   );
 }
 

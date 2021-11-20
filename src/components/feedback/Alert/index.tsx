@@ -16,7 +16,7 @@ interface IAlertProps {
   // handleModalOpen: Function,
 }
 
-const Alert: React.FC<IAlertProps> = ({title, content,onClose, cancelTitle, acceptTitle, handleModalClose, isOpenModal, loading, ...rest}) => {
+const Alert: React.FC<IAlertProps> = ({title, content, onClose, cancelTitle, acceptTitle, handleModalClose, isOpenModal, loading, ...rest}) => {
 
   return (
     <Dialog
@@ -45,8 +45,7 @@ const Alert: React.FC<IAlertProps> = ({title, content,onClose, cancelTitle, acce
               text={acceptTitle}
             />
           </Grid>
-          <Grid item xs={7
-          } sm={8}>
+          <Grid item xs={7} sm={8}>
             <Button 
               onClick={onClose} 
               typeStyle="text"

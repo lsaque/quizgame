@@ -1,36 +1,42 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Grid, Typography, useTheme } from '@mui/material';
 
 import CircularProgress from '../CircularProgress';
+import ClientContext from '../../../contexts/ClientContext';
 
 interface IProgressTagProps{
   name: string,
-  typeStyle: 'info' | 'error' | 'success',
+  typeStyle: string | 'info' | 'error' | 'success',
   resultNumber: number,
+  quantityQuestion: number,
 }
 
-const ProgressTag: React.FC<IProgressTagProps> = ({name, resultNumber, typeStyle}) => {
+const ProgressTag: React.FC<IProgressTagProps> = ({name, resultNumber, quantityQuestion, typeStyle}) => {
   const theme = useTheme();
-  // let { title, description, resultNumber, progress }: string = '';
+  
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const progress = (resultNumber / 10) * 100;
-  // const [resultNumber, setResultNumber] = useState('')
-  // const [progress, setProgress] = useState('')
+  const [color, setColor] = useState<"info" | "error" | "success" | "primary">("primary");
   
+  const progress = (resultNumber / quantityQuestion) * 100;
+
   useEffect(() => {
     switch (typeStyle) {
       case 'info':
         setTitle(`Woooow, sapient!`);
         setDescription(`You answered ${resultNumber}.`);
+        setColor('info');
       break;
       case 'error':
         setTitle(`Oops, my dear...`);
         setDescription(`You missed ${resultNumber}.`);
+        setColor('error');
+
       break;
       case 'success':
-        setTitle(`Good job, ${name}!`);
+        setTitle(`Good job, ${name === '' ? 'Sapient' : name}!`);
         setDescription(`You got ${resultNumber} right.`);
+        setColor('success');
       break;
       default:
         setTitle(`Profile not selected`);
@@ -65,7 +71,7 @@ const ProgressTag: React.FC<IProgressTagProps> = ({name, resultNumber, typeStyle
           right: '-95px',
         }}
       >
-        <CircularProgress result value={progress} color={typeStyle}/>
+        <CircularProgress result value={progress} color={color}/>
       </Grid>
     </Grid>
   )

@@ -6,28 +6,30 @@ import RadioButton from '../../inputs/RadioButton';
 
 interface IControlCheckAnswerProps {
   value: string,
-  checkAnswers?: 'correct' | 'incorrect' | 'default',
+  typeStyle: string | 'default' | 'error' | 'success',
   [x: string]: any,
 }
 
-const ControlCheckAnswer: React.FC<IControlCheckAnswerProps> = ({ value, checkAnswers, ...rest }) => {
+const ControlCheckAnswer: React.FC<IControlCheckAnswerProps> = ({ value, typeStyle, ...rest }) => {
 
   const theme = useTheme();
-  // const [isFocused, setFocus] = useState(false);
+  const [style, setStyle] = useState({
+    border: theme.palette.mode === 'dark' 
+      ? '1px solid rgba(118, 118, 118, 0.329)' 
+      : '1px solid rgba(133, 133, 133, 0.479)'
+  });
+  
 
   useEffect(() => {
-    switch (checkAnswers) {
-      case 'correct':
-        console.log('green')
-        break;
-      case 'incorrect':
-        console.log('red')
-        break;
-      default: 
-        console.log('blue')
-        break;
+    switch (typeStyle) {
+      case 'success':
+        setStyle({border: `1px solid #00FB00`})
+      break;
+
+      case 'error':
+        setStyle({border: `1px solid #FF3131`})
+      break;
     }
-    // console.log(checkAnswers ? `2px solid green` : `2px solid blue`)
   },[])
 
   return (
@@ -39,10 +41,12 @@ const ControlCheckAnswer: React.FC<IControlCheckAnswerProps> = ({ value, checkAn
       // onBlur={() => setFocus(false)}
       // onDoubleClick={() => setFocus(false)}
       control={<RadioButton/>}
-      sx={{
+      sx={style}
+      // sx={{
+        // border: `2px solid green`
         // theme.palette.mode === 'dark' ? '1px solid rgba(118, 118, 118, 0.329)' : '1px solid rgba(133, 133, 133, 0.479)',
-        // border: checkAnswers ? `2px solid ${theme.palette.success}` : checkAnswers===false ? `2px solid ${theme.palette.error}` : `2px solid ${theme.palette.info}`
-      }}
+        // border: isFocused ? `2px solid green` : '2px solid red',
+      // }}
       {...rest}
     />
   );
