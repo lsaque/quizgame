@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Grid, Box, FormControl, RadioGroup } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { FormikProps, useFormik } from 'formik';
 import * as yup from 'yup';
 import SwipeableViews from 'react-swipeable-views';
 import parse from 'html-react-parser';
 
+import { ROOT } from '../../../utils/constants/routes.constants';
 import Header from '../../display/Header';
 import Subtitle from '../../display/Subtitle';
 import ApiData from '../../../types/ApiData';
@@ -12,16 +14,10 @@ import Container from '../../layout/QuizContainer';
 import Button from '../../inputs/Button';
 import InternalContainer from '../../layout/InternalGrid';
 import FooterModeContext from '../../../contexts/FooterModeContext';
-import ApiContext from '../../../contexts/ApiContext';
 import ControlLabel from '../../feedback/ControlLabel';
 import Alert from '../../feedback/Alert';
 import ResultModal from '../../feedback/ResultModal';
-import { useNavigate } from 'react-router-dom';
-import { ROOT } from '../../../utils/constants/routes.constants';
 import ClientContext from '../../../contexts/ClientContext';
-import { Result } from '../../../types/ApiData/lib/result';
-import ClientResult from '../../../types/ClientData/lib/clientResult';
-import Client from '../../../types/ClientData';
 
 interface IStepperQuizProps {
   data: ApiData
@@ -29,41 +25,6 @@ interface IStepperQuizProps {
 
 interface MyValues { 
   answers: string[],
-}
-
-const clientData = {
-  name: 'Isaque',
-  quantityQuestion: 2,
-  quantityWrongAnswers: 1,
-  quantityCorrectAnswers: 1,
-  results: [
-    {
-      category: "Entertainment: Music kflsj kljsflkjf lkjslkfj ",
-      difficulty: "easy",
-      question: "Ringo Starr of The Beatles mainly played what instrument?",
-      correct_answer: "Guitar",
-      client_answer: "Guitar",
-      answers: [
-        "Bass",
-        "Guitar",
-        "Piano",
-        "Drums"
-      ],
-    },
-    {
-      category: "Entertainment: Film",
-      difficulty: "hard",
-      question: "In what Disney movie can you spot the character &quot;Pac-Man&quot; in if you look closely enough in some scenes?",
-      correct_answer: "Tron",
-      client_answer: "Big Hero 6",
-      answers: [
-        "Big Hero 6",
-        "Fantasia",
-        "Monsters, Inc.",
-        "Tron"
-      ]
-    },
-  ]
 }
 
 const FormsQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
@@ -84,7 +45,6 @@ const FormsQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
     isLoading,
     setLoading,
     maxSteps,
-    setMaxSteps,
     activeStep,
     setActiveStep,
     setNumberQuestionsAnswered
@@ -95,7 +55,6 @@ const FormsQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
   
   const navigate = useNavigate();
   const dataResults = data.results;
-  setMaxSteps(dataResults.length);
 
   const validationSchema = yup.object({
     answers: yup
@@ -104,6 +63,11 @@ const FormsQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
   });
   
   const { 
+    name,
+    quantityCorrectAnswers,
+    quantityQuestion,
+    quantityWrongAnswers,
+    results,
     setQuantityCorrectAnswers,
     setQuantityWrongAnswers,
     setQuantityQuestion,
@@ -143,11 +107,29 @@ const FormsQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
   });
 
   const handleQuizSubmit = () => {
+    saveLocalStorage();
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
       navigate(ROOT);
     }, 1000);
+  }
+
+  const saveLocalStorage = () => {
+    const finalResultGame = {
+      name: name,
+      date: getDate(),
+      quantityQuestion: quantityQuestion,
+      quantityWrongAnswers: quantityWrongAnswers,
+      quantityCorrectAnswers: quantityCorrectAnswers,
+      results: results,
+    }
+    localStorage.setItem(`Result of ${name}`, JSON.stringify(finalResultGame));
+  }
+
+  const getDate = () => {
+    const date = new Date();
+    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} - ${date.getHours()}h${date.getMinutes()}`;
   }
 
   const handleSubmit = () => {

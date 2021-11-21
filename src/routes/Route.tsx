@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { NOT_FOUND, ROOT, PREPARE,  QUIZ } from '../utils/constants/routes.constants';
+import { NOT_FOUND, ROOT, PREPARE, QUIZ } from '../utils/constants/routes.constants';
 
 import Home from '../views/Home';
 import Prepare from '../views/Prepare';

@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "is.aquiz",
+  "name": "is.aquiz is a platform to test your general knowledge.",
   "icons": [
     {
       "src": "favicon.ico",

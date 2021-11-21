@@ -8,7 +8,6 @@ import { ROOT, QUIZ } from '../../../utils/constants/routes.constants';
 import InternalContainer from '../../layout/InternalGrid';
 import Input from '../../inputs/Input';
 import Button from '../../inputs/Button';
-import ApiContext from '../../../contexts/ApiContext';
 import ClientContext from '../../../contexts/ClientContext';
 
 interface MyValues { 
@@ -80,8 +79,6 @@ const FormsPrepare: React.FC = () => {
                   type="submit"
                   text="Start"
                   loading={isLoading}
-                  // onClick={async () => handleSubmit()} 
-                  // href={PREPARE}
                 />
               </Grid>
             </Grid>

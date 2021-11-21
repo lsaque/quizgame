@@ -1,6 +1,5 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import { Container, Paper } from '@material-ui/core';
+import { Container, Paper, Box, Grid } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 import Background from '../../../assets/images/background/background.png'; 
@@ -12,10 +11,13 @@ const LayoutContainer: React.FC = ({ children }) => {
   const backgroundIcon = (
     <Box
       sx={{
-        backgroundColor: theme.palette.primary.main,
-        height:200,
-        width: 200,
-        borderRadius: 100,
+        border: {
+          xs: `80px solid ${theme.palette.primary.main}`,
+          md: `50px solid ${theme.palette.primary.main}`
+        },
+        height: {xs: 200, md: 650},
+        width: {xs: 200, md: 650},
+        borderRadius: {xs: 100, md: 650},
       }}
     />
   )
@@ -25,9 +27,13 @@ const LayoutContainer: React.FC = ({ children }) => {
       className="background"
       sx={{ backgroundImage: `url(${ Background })` }}
     >
-      { backgroundIcon /* All of the background icons will be here */ }
+      <Grid container>
+        <Grid item xs={12} display="flex" justifyContent="center" alignItems="center">
+          {backgroundIcon}
+        </Grid>
+      </Grid>
       <Container maxWidth="xl" className="layoutContainer">
-        { children }
+        {children}
       </Container>
     </Paper>
   );

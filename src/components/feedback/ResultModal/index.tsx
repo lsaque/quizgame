@@ -1,4 +1,4 @@
-import react, { useEffect, useRef, useState, useContext } from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
 import parse from 'html-react-parser';
 import { Dialog, DialogActions, DialogContent, Grid, Box, useTheme, FormControl, RadioGroup, Alert } from '@mui/material';
 
@@ -11,8 +11,6 @@ import ProgressTag from '../../feedback/ProgressTag';
 
 import Container from '../../layout/QuizContainer';
 import ControlCheckAnswer from '../ControlCheckAnswer';
-import ClientData from '../../../types/ClientData';
-import ApiData from '../../../types/ApiData';
 import ClientContext from '../../../contexts/ClientContext';
 
 import Button from '../../inputs/Button';
@@ -24,7 +22,7 @@ interface IResultModalProps {
 }
 
 const ResultModal: React.FC<IResultModalProps> = ({ isOpenModal, handleModalClose, loading }) => {
-  const [open, setOpen] = useState(false);
+  const [open] = useState(false);
   const descriptionElementRef = useRef<HTMLElement>(null);
   const theme = useTheme();
 
@@ -75,7 +73,6 @@ const ResultModal: React.FC<IResultModalProps> = ({ isOpenModal, handleModalClos
   return (
     <Dialog
       open={isOpenModal}
-      // onClose={() => handleModalClose}
       scroll="paper"
       maxWidth="md"
       onBackdropClick={handleModalClose}

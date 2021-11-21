@@ -13,35 +13,38 @@ import ClientContext from '../../contexts/ClientContext';
 
 const Home: React.FC = () => {
 
-  const { setPagination, isPagination } = useContext(FooterModeContext);
+  const {
+    setPagination,
+    setMaxSteps,
+    setActiveStep,
+    setLastStep,
+    setLoading,
+    setNumberQuestionsAnswered,
+  } = useContext(FooterModeContext);
+  
+  const { 
+    setIsCorrectAnswer,
+    setName,
+    setQuantityCorrectAnswers,
+    setQuantityQuestion,
+    setQuantityWrongAnswers,
+    setResults
+  } = useContext(ClientContext);
 
   useEffect(() => {
     setPagination(false);
-  }, [isPagination])
-
-  const { 
-    name,
-    setName, 
-    quantityCorrectAnswers,
-    setQuantityCorrectAnswers,
-    quantityWrongAnswers,
-    setQuantityWrongAnswers,
-    quantityQuestion,
-    setQuantityQuestion,
-    isCorrectAnswer,
-    setIsCorrectAnswer,
-    results,
-    setResults,
-    // clientState,
-    // setClientState
-  } = useContext(ClientContext);
-
-  console.log('name: ' + name);
-  console.log('quantityQuestion: ' + quantityQuestion);
-  console.log('quantityWrongAnswers: ' + quantityWrongAnswers);
-  console.log('quantityCorrectAnswers: ' + quantityCorrectAnswers);
-  console.log(isCorrectAnswer);
-  console.log(results);
+    setMaxSteps(0);
+    setActiveStep(0);
+    setLastStep(false);
+    setLoading(false);
+    setNumberQuestionsAnswered(0);
+    setIsCorrectAnswer([]);
+    setName('');
+    setQuantityCorrectAnswers(0);
+    setQuantityQuestion(0);
+    setQuantityWrongAnswers(0);
+    setResults([]);
+  }, [])
 
   return (
     <Container>

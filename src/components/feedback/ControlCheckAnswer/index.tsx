@@ -37,16 +37,8 @@ const ControlCheckAnswer: React.FC<IControlCheckAnswerProps> = ({ value, typeSty
       //@ts-ignore
       label={parse(value)}
       value={parse(value)}
-      // onClick={() => setFocus(true)}
-      // onBlur={() => setFocus(false)}
-      // onDoubleClick={() => setFocus(false)}
       control={<RadioButton/>}
       sx={style}
-      // sx={{
-        // border: `2px solid green`
-        // theme.palette.mode === 'dark' ? '1px solid rgba(118, 118, 118, 0.329)' : '1px solid rgba(133, 133, 133, 0.479)',
-        // border: isFocused ? `2px solid green` : '2px solid red',
-      // }}
       {...rest}
     />
   );

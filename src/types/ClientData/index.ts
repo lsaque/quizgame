@@ -1,11 +1,11 @@
 import ClientResult from './lib/clientResult';
 
 type Client =  {
-  name?: string, //ok
-  quantityQuestion: number, //ok
+  name: string,
+  quantityQuestion: number,
   quantityWrongAnswers: number,
   quantityCorrectAnswers: number,
-  results: ClientResult[] //ok
+  results: ClientResult[],
 }
 
 export default Client;

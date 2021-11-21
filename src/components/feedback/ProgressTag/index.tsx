@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Typography, useTheme } from '@mui/material';
 
 import CircularProgress from '../CircularProgress';
-import ClientContext from '../../../contexts/ClientContext';
 
 interface IProgressTagProps{
   name: string,

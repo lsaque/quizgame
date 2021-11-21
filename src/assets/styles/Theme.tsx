@@ -46,12 +46,6 @@ const Theme = (mode: PaletteMode) => useMemo(
           }
         ),
       },
-      action: {
-        ...(mode === 'dark'
-          ? { /* hover */ }
-          : { /* hover */ }
-        ),
-      }
     },
     shape: {
       borderRadius: 10,

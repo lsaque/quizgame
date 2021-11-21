@@ -1,23 +1,24 @@
 import React from 'react';
-import { ROOT } from '../../utils/constants/routes.constants';
+import { Grid, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-// import React, { useEffect, useContext } from 'react';
-
-// import { FooterModeContext } from '../../context/FooterModeContext';
+import { ROOT } from '../../utils/constants/routes.constants';
+import Button from '../../components/inputs/Button';
 
 const NotFound: React.FC = () => {
 
-  // const { setState: setGlobalState } = useContext(FooterModeContext);
-  // useEffect(() => {
-  //   async () => setGlobalState({ isPagination: true });
-  // },[])
-
   return (
-    <div>
-      <h1>404 Page</h1>
-      <Link to={ROOT}>Something went wrong return to Home</Link>
-    </div>
+    <Grid container justifyContent="center" alignItems="center">
+      <Grid item textAlign="center">
+        <Typography variant="h1" component="h1">
+          <b>Sorry,</b> 😓
+        </Typography>
+        <Typography variant="h4" component="h2" marginY={4}>This page doens't exist!</Typography>
+        <Link to={ROOT} style={{ textDecoration: 'none' }}>
+          <Button typeStyle="text" variant="contained" text="Return to home"/>
+        </Link>
+      </Grid>
+    </Grid>
   );
 }
 

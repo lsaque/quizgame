@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik, FormikProps } from 'formik';
 import { Grid } from '@mui/material';
 import ArrowRight from '@mui/icons-material/EastRounded';
 import * as yup from 'yup';
-import { useNavigate } from 'react-router-dom';
 
 import { PREPARE } from '../../../utils/constants/routes.constants';
 import { getQuestions } from '../../../services/lib/methods';
@@ -13,6 +13,7 @@ import Input from '../../inputs/Input';
 import Button from '../../inputs/Button';
 
 import ApiContext from '../../../contexts/ApiContext';
+import FooterModeContext from '../../../contexts/FooterModeContext';
 
 interface MyValues { 
   numberQuestions: string 
@@ -33,6 +34,7 @@ const FormsHome: React.FC = () => {
   const mobileDisplay = { display: { xs: 'flex', md: 'block' }, justifyContent: 'flex-end' };
   const [isLoading, setLoading] = useState<boolean>(false);
   const { setApiState } = useContext(ApiContext);
+  const { setMaxSteps } = useContext(FooterModeContext);
   
   const formik: FormikProps<MyValues> = useFormik<MyValues>({
     initialValues: {
@@ -45,9 +47,10 @@ const FormsHome: React.FC = () => {
         getQuestions(values.numberQuestions)
         .then(function(response){
             setApiState(response.data);
+            setMaxSteps(response.data.results.length);
           }).finally(() => {
-            setLoading(false)
-            navigate(PREPARE)
+            setLoading(false);
+            navigate(PREPARE);
           });
       }, 500)
     },
@@ -78,7 +81,6 @@ const FormsHome: React.FC = () => {
               variant="contained"
               icon={<ArrowRight/>}
               loading={isLoading}
-              // onClick={async () => handleSubmit()} 
             />
           </Grid>
         </Grid>

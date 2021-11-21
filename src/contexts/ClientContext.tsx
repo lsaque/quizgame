@@ -1,8 +1,5 @@
 import React, { createContext, useState } from 'react';
-import Client from '../types/ClientData';
 import Result from '../types/ClientData/lib/clientResult';
-
-// setClientName: (value: string) => void,
 
 const DEFAULT_VALUE = {
   name: '',
@@ -21,8 +18,6 @@ const DEFAULT_VALUE = {
 }
 
 type PropsClientContext = {
-  // clientState: Client,
-  // setClientState: React.Dispatch<React.SetStateAction<Client>>
   name: string,
   quantityQuestion: number,
   quantityWrongAnswers: number,
@@ -40,7 +35,6 @@ type PropsClientContext = {
 const ClientContext = createContext<PropsClientContext>(DEFAULT_VALUE);
 
 const ClientProvider: React.FC = ({ children }) => {
-  // const [clientState, setClientState] = useState<Client>(DEFAULT_VALUE.clientState);
   const [name, setName] = useState<string>(DEFAULT_VALUE.name);
   const [quantityQuestion, setQuantityQuestion] = useState<number>(DEFAULT_VALUE.quantityQuestion);
   const [quantityWrongAnswers, setQuantityWrongAnswers] = useState<number>(DEFAULT_VALUE.quantityWrongAnswers);
@@ -49,8 +43,6 @@ const ClientProvider: React.FC = ({ children }) => {
   const [results, setResults] = useState<Result[]>(DEFAULT_VALUE.results);
 
   const value = {
-    // clientState,
-    // setClientState,
     name,
     setName,
     quantityQuestion,

@@ -13,7 +13,6 @@ interface IAlertProps {
   onClose: React.MouseEventHandler<HTMLButtonElement>,
   handleModalClose: React.MouseEventHandler<HTMLButtonElement>,
   [x: string]: any,
-  // handleModalOpen: Function,
 }
 
 const Alert: React.FC<IAlertProps> = ({title, content, onClose, cancelTitle, acceptTitle, handleModalClose, isOpenModal, loading, ...rest}) => {
