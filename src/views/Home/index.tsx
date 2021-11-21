@@ -56,8 +56,8 @@ const Home: React.FC = () => {
       >
 
         <Grid item xs={12} md={7} lg={6}>
-          <Header>Questionário de<br/>perguntas gerais</Header>
-          <Subtitle>Now it's new black and old goldNow it's new black and old goldNow it's new black.</Subtitle>
+          <Header>We are a general<br/> questions platform</Header>
+          <Subtitle>Here you can learn about everything and everyone, just start.</Subtitle>
           <FormsHome/>
         </Grid>
 

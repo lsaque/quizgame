@@ -19,8 +19,8 @@ const Prepare: React.FC = () => {
       >
 
         <Grid item xs={12} md={6}>
-          <Header>Treine o seu<br/>conhecimento</Header>
-          <Subtitle>Antes de iniciarmos, preciso que preencha só mais um campo, para te enviarmos uma pizza depois, fechou? 😋✌</Subtitle>
+          <Header>Train your general<br/> knowledge now</Header>
+          <Subtitle>Before we start, I need you to fill in just one more field, so we can send you a pizza later, ok? 😋✌</Subtitle>
           <FormsPrepare/>
         </Grid>
 

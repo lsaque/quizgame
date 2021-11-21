@@ -12,12 +12,13 @@ const LayoutContainer: React.FC = ({ children }) => {
     <Box
       sx={{
         border: {
-          xs: `80px solid ${theme.palette.primary.main}`,
+          xs: `50px solid ${theme.palette.primary.main}`,
           md: `50px solid ${theme.palette.primary.main}`
         },
         height: {xs: 200, md: 650},
         width: {xs: 200, md: 650},
         borderRadius: {xs: 100, md: 650},
+        marginLeft: '20%',
       }}
     />
   )
