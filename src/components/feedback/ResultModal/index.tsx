@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useContext } from 'react';
+import { useContext } from 'react';
 import parse from 'html-react-parser';
 import { Dialog, DialogActions, DialogContent, Grid, Box, useTheme, FormControl, RadioGroup, Alert } from '@mui/material';
 
@@ -17,29 +17,18 @@ import Button from '../../inputs/Button';
 
 interface IResultModalProps {
   isOpenModal: boolean,
-  loading: boolean,
-  handleModalClose: React.MouseEventHandler<HTMLButtonElement>,
+  loading?: boolean,
+  handleModalClose?: React.MouseEventHandler<HTMLButtonElement>,
 }
 
 const ResultModal: React.FC<IResultModalProps> = ({ isOpenModal, handleModalClose, loading }) => {
-  const [open] = useState(false);
-  const descriptionElementRef = useRef<HTMLElement>(null);
   const theme = useTheme();
-
-  useEffect(() => {
-    if (open) {
-      const { current: descriptionElement } = descriptionElementRef;
-      if (descriptionElement !== null) {
-        descriptionElement.focus();
-      }
-    }
-  }, [open]);
-
+  
   const { 
     name,
-    quantityCorrectAnswers,
-    quantityWrongAnswers,
     quantityQuestion,
+    quantityWrongAnswers,
+    quantityCorrectAnswers,
     results,
   } = useContext(ClientContext);
 
@@ -61,12 +50,12 @@ const ResultModal: React.FC<IResultModalProps> = ({ isOpenModal, handleModalClos
       resultNumber: quantityQuestion,
     },
     {
-      typeStyle: "error",
-      resultNumber: quantityWrongAnswers,
-    },
-    {
       typeStyle: "success",
       resultNumber: quantityCorrectAnswers,
+    },
+    {
+      typeStyle: "error",
+      resultNumber: quantityWrongAnswers,
     },
   ]
 
@@ -94,10 +83,10 @@ const ResultModal: React.FC<IResultModalProps> = ({ isOpenModal, handleModalClos
           </Grid>
 
           <Grid container spacing={2} paddingY={4}>
-            {progress?.map((element, index) => (
+            {progress.map((element, index) => (
             <Grid item xs={12} md={4} key={index}>
               <ProgressTag 
-                name={typeof name === 'undefined' ? 'sapient' : name} 
+                name={typeof name === null ? 'sapient' : name} 
                 typeStyle={element.typeStyle}
                 resultNumber={element.resultNumber}
                 quantityQuestion={quantityQuestion}
@@ -115,7 +104,7 @@ const ResultModal: React.FC<IResultModalProps> = ({ isOpenModal, handleModalClos
             }}
           >
             {results.map((result, index) => (
-              <Grid item xs={12} md={10} key={index} mt={{xs: 3, md: 15}}>
+              <Grid item xs={12} md={10} key={index} mt={{ xs: 3, md: 15 }}>
                 <Header questions>{parse(result.question)}</Header>
                 <Subtitle difficulty={result.difficulty}>{parse(result.category)}</Subtitle>
                 <Container>

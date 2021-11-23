@@ -64,10 +64,6 @@ const FormsQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
   
   const { 
     name,
-    quantityCorrectAnswers,
-    quantityQuestion,
-    quantityWrongAnswers,
-    results,
     setQuantityCorrectAnswers,
     setQuantityWrongAnswers,
     setQuantityQuestion,
@@ -101,30 +97,37 @@ const FormsQuiz: React.FC<IStepperQuizProps> = ({ data }) => {
           setIsCorrectAnswer(state => [...state, false]);
         }
       });
-
+      saveLocalStorage();
       setResultOpen(true);
     },
   });
 
   const handleQuizSubmit = () => {
-    saveLocalStorage();
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
+      setResultOpen(false);
       navigate(ROOT);
     }, 1000);
   }
 
   const saveLocalStorage = () => {
-    const finalResultGame = {
-      name: name,
-      date: getDate(),
-      quantityQuestion: quantityQuestion,
-      quantityWrongAnswers: quantityWrongAnswers,
-      quantityCorrectAnswers: quantityCorrectAnswers,
-      results: results,
+    let correct = 0;
+    let wrong = 0;
+    
+    data.results.forEach((element, index) => {
+      formik.values.answers[index] === element.correct_answer ? correct++ : wrong++;
+    });
+
+    let result = {
+      'name': name,
+      'date': getDate(),
+      'quantityQuestion': maxSteps,
+      'quantityWrongAnswers': wrong,
+      'quantityCorrectAnswers': correct
     }
-    localStorage.setItem(`Result of ${name}`, JSON.stringify(finalResultGame));
+
+    localStorage.setItem('result', JSON.stringify(result))
   }
 
   const getDate = () => {

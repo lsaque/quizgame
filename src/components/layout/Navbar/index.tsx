@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { IconButton, AppBar, Toolbar, Button, Stack, Box } from '@mui/material';
 import { Link } from '@mui/material';
@@ -14,6 +14,7 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import { ColorModeContext } from '../../../contexts/ColorModeContext';
 import { ReactComponent as Logo } from '../../../assets/images/logo/logo.svg';
 import { ROOT } from '../../../utils/constants/routes.constants';
+import LocalScoreModal from '../../feedback/LocalScoreModal';
 
 const navbarItens = [
   {
@@ -58,6 +59,10 @@ export default function Navbar() {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
 
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleClick = () => setModalOpen(false);
+
   return (
     <AppBar component="nav">
       <Toolbar>
@@ -69,12 +74,15 @@ export default function Navbar() {
         </Box>
 
         <Stack direction="row" spacing={0.6}>
-          { navbarItens?.map(item => (
+          { navbarItens.map(item => (
             <Button
               key={item.key}
               href={item.href}
               color='inherit'
               className="navbarItem"
+              onClick={() => {
+                if(item.key === 5){ setModalOpen(true)}
+              }}
               sx={
                 item.key === 5
                 ? { display: 'flex' }
@@ -95,6 +103,11 @@ export default function Navbar() {
             }
           </IconButton>
         </Stack>
+
+        <LocalScoreModal 
+          isOpenModal={isModalOpen} 
+          handleModalClose={() => handleClick()}
+        />
 
       </Toolbar>
     </AppBar>
