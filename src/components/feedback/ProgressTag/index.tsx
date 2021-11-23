@@ -4,7 +4,7 @@ import { Grid, Typography, useTheme } from '@mui/material';
 import CircularProgress from '../CircularProgress';
 
 interface IProgressTagProps{
-  name: string,
+  name: string | null,
   typeStyle: string | 'info' | 'error' | 'success',
   resultNumber: number,
   quantityQuestion: number,
