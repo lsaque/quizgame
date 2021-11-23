@@ -2,6 +2,9 @@
   "name": "quizgame",
   "version": "0.1.0",
   "private": true,
+  "exports": {
+    "./*": "./*"
+  },
   "dependencies": {
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
